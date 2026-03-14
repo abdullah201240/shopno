@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, MapPin, User, Menu,Phone, Apple, Baby, SprayCan, Dog, Sparkles, ChevronDown, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -209,8 +210,14 @@ const Header = () => {
             </Sheet>
 
             <Link href="/" className="flex items-center shrink-0">
-              <div className="bg-white p-1 rounded-full w-20 lg:w-24 h-8 lg:h-10 flex items-center justify-center">
-                <span className="text-[10px] lg:text-sm font-black text-[#C82128] tracking-tighter uppercase px-1">SHWAPNO</span>
+              <div className="relative w-20 lg:w-24 h-8 lg:h-10  rounded-full p-1">
+                <Image
+                  src="/shwapno_logo.png"
+                  alt="Shwapno Logo"
+                  fill
+                  unoptimized
+                  className="object-contain"
+                />
               </div>
             </Link>
 
