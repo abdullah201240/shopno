@@ -49,7 +49,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ subs, onMouseEnter, onMouseLeave })
 
   return (
     <div 
-      className="absolute left-full top-0 w-[420px] bg-white z-[999]"
+      className="absolute left-full top-0 w-105 bg-white z-999"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -74,7 +74,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ subs, onMouseEnter, onMouseLeave })
             
             {/* Sub-Sub Menu */}
             {activeSubMenu === j && sub.subSubs.length > 0 && (
-              <div className="absolute left-full top-0 w-[200px] bg-white z-[1000] border-l border-gray-100 shadow-lg">
+              <div className="absolute left-full top-0 w-50 bg-white z-1000 border-l border-gray-100 shadow-lg">
                 <div className="flex flex-col py-2">
                   {sub.subSubs.map((subSub, k) => (
                     <Link
@@ -125,7 +125,7 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({ categories }) => {
   };
 
   return (
-    <div className="hidden lg:flex flex-col w-[220px] shrink-0 bg-white relative overflow-visible">
+    <div className="hidden lg:flex flex-col w-60 shrink-0 bg-white relative overflow-visible">
       <div className="flex flex-col" onMouseLeave={handleMouseLeave}>
         {categories.map((cat, i) => (
           <div

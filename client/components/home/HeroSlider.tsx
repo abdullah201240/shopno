@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -34,10 +35,12 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
           )}
         >
           <div className="w-full h-full bg-gray-200 overflow-hidden">
-            <img
+            <Image
               src={banner.image}
               alt={banner.alt}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="100vw"
             />
           </div>
         </div>
@@ -45,12 +48,14 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
 
       {/* Navigation Buttons */}
       <button
+        title="Previous Slide"
         className="absolute left-2 lg:left-3 top-1/2 -translate-y-1/2 h-7 w-7 lg:h-9 lg:w-9 bg-[#FAD816] hover:bg-[#FAD816] text-black rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center sm:opacity-100 opacity-50"
         onClick={() => setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length)}
       >
         <ChevronRight className="h-4 w-4 lg:h-5 lg:w-5 rotate-180" />
       </button>
       <button
+        title="Next Slide"
         className="absolute right-2 lg:right-3 top-1/2 -translate-y-1/2 h-7 w-7 lg:h-9 lg:w-9 bg-[#FAD816] hover:bg-[#FAD816] text-black rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center sm:opacity-100 opacity-50"
         onClick={() => setCurrentSlide((prev) => (prev + 1) % banners.length)}
       >
@@ -61,6 +66,8 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
       <div className="absolute bottom-2 lg:bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 lg:gap-1.5 z-50">
         {banners.map((_, i) => (
           <button
+            type="button"
+            title="Go to slide"
             key={i}
             onClick={() => setCurrentSlide(i)}
             className={cn(

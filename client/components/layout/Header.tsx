@@ -20,7 +20,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full shadow-sm">
       {/* Tier 1: Red Background Header */}
       <div className="bg-[#C82128] text-white py-2 px-3 lg:px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 lg:gap-4 h-11 lg:h-12">
+        <div className="w-full flex items-center justify-between gap-2 lg:gap-4 h-11 lg:h-12 px-3 lg:px-6">
           {/* Logo & Mobile Menu */}
           <div className="flex items-center gap-2 lg:gap-4">
             <Sheet>
@@ -134,7 +134,7 @@ const Header = () => {
 
       {/* Tier 2: White Background Sub-Header */}
       <div className="bg-white hidden lg:block border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 lg:px-4">
+        <div className="w-full mx-auto px-4 lg:px-10">
           <div className="flex h-10 items-center justify-between">
             <nav className="flex items-center h-full">
               <div className="flex items-center gap-2 font-black text-[11px] uppercase tracking-wider text-[#3c3e44] cursor-pointer hover:text-[#C82128] w-[255px] h-full pr-4 border-r border-gray-100">

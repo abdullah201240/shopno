@@ -5,26 +5,33 @@ import BestDeals from "@/components/home/BestDeals";
 import WeekendDeals from "@/components/home/WeekendDeals";
 import RecommendedForYou from "@/components/home/RecommendedForYou";
 import HotAndTrending from "@/components/home/HotAndTrending";
+import TrustBadges from "@/components/home/TrustBadges";
 
 export default function Home() {
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-6 lg:space-y-8 pb-12">
-      {/* Hero Section (Sidebar + Slider + Trust Badges) */}
-      <HomeHero />
+    <>
+      {/* Hero Section - Full Width */}
+      <div className="w-full">
+        <HomeHero />
+      </div>
+      
+      {/* Other Sections - Constrained Width */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-6 lg:space-y-8 pb-12">
+       {/* Trust Badges */}
+      <TrustBadges />
+        {/* Recommended for You */}
+        <RecommendedForYou />
 
-      {/* Recommended for You */}
-      <RecommendedForYou />
+        {/* Hot & Trending */}
+        <HotAndTrending />
 
-      {/* Hot & Trending */}
-      <HotAndTrending />
+        {/* Bread & More Section */}
+        <BreadAndMore />
 
-      {/* Bread & More Section */}
-      <BreadAndMore />
-
-      {/* Best Deals Section */}
-      <BestDeals />
-      <WeekendDeals />
-
-    </div>
+        {/* Best Deals Section */}
+        <BestDeals />
+        <WeekendDeals />
+      </div>
+    </>
   );
 }

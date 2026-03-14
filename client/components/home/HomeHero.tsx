@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import {
   Apple,
   Baby,
@@ -11,7 +9,6 @@ import {
 import CategorySidebar from "./CategorySidebar";
 import HeroSlider from "./HeroSlider";
 import PromoCategorySlider from "./PromoCategorySlider";
-import TrustBadges from "./TrustBadges";
 
 const sidebarCategories = [
   {
@@ -136,15 +133,15 @@ const banners = [
 
 const HomeHero = () => {
   return (
-    <section className="relative z-0">
-      <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 h-auto">
+    <section className="relative z-0 w-full px-4 lg:px-6">
+      <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 h-auto w-full">
         {/* Left Sidebar - Hidden on lg and below handled in CategorySidebar */}
         <CategorySidebar categories={sidebarCategories} />
 
         {/* Right Content Area */}
-        <div className="flex-1 flex flex-col gap-2 min-h-[200px] sm:min-h-[400px] lg:h-[550px]">
+        <div className="flex-1 flex flex-col gap-2 min-h-50 sm:min-h-100 lg:h-137.5 p-4 lg:p-0">
           {/* Slider Section */}
-          <div className="h-[200px] sm:h-[350px]">
+          <div className="h-50 sm:h-87.5">
             <HeroSlider banners={banners} />
           </div>
 
@@ -155,8 +152,7 @@ const HomeHero = () => {
         </div>
       </div>
 
-      {/* Trust Badges */}
-      <TrustBadges />
+      
 
 
     </section>
