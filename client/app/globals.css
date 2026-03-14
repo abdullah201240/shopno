@@ -297,28 +297,26 @@
   background-clip: text;
 }
 
-/* Smooth Scrolling */
+/* Base Styles */
 html {
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
+body {
+  overflow-x: hidden;
+}
+
+/* Hide Scrollbar - Remove scrollbar from view */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: oklch(0.8 0 0);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.7 0 0);
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Selection Color */

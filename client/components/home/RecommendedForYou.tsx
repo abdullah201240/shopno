@@ -24,7 +24,7 @@ const recommendedProducts: Product[] = [
     id: "1",
     name: "Chopstick Ramen Hot Chicken Noodles 160gm",
     price: 170,
-    image: "/product/65fa972c115075f231ecd19b_Dekko-Egg-Noodles-15020gm-Buy3-Get1-Free_1_220.webp",
+    image: "/product/65fa972c115075f231ecd19f_Mr-Noodles-Korean-Super-Spicy-496gm_1_220.webp",
   },
   {
     id: "2",
@@ -35,7 +35,7 @@ const recommendedProducts: Product[] = [
   },
   {
     id: "3",
-    name: "Quaker Oats 450(±)50gm (Jar)",
+    name: "Quaker Oats Jar 450gm",
     price: 360,
     originalPrice: 380,
     unit: "Per Piece",
@@ -54,14 +54,14 @@ const recommendedProducts: Product[] = [
   },
   {
     id: "5",
-    name: "Pureit Classic Germ Kill Kit 1500Ltr.",
+    name: "Pureit Classic Germ Kill Kit",
     price: 800,
     unit: "Per Piece",
     image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp",
   },
   {
     id: "6",
-    name: "Electric Kettle 1.8Ltr.",
+    name: "Electric Kettle 1.8L",
     price: 625,
     originalPrice: 1380,
     unit: "Per Piece",
@@ -70,7 +70,7 @@ const recommendedProducts: Product[] = [
   },
 ];
 
-const RecommendedForYou: React.FC = () => {
+const RecommendedForYou = () => {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const rowRef = useRef<HTMLDivElement>(null);
 
@@ -82,132 +82,132 @@ const RecommendedForYou: React.FC = () => {
   };
 
   const scroll = (dir: number) => {
-    rowRef.current?.scrollBy({ left: dir * 240, behavior: "smooth" });
+    if (!rowRef.current) return;
+    const card = rowRef.current.querySelector(".product-card") as HTMLElement;
+    if (!card) return;
+
+    const gap = 12;
+    const scrollAmount = card.offsetWidth + gap;
+
+    rowRef.current.scrollBy({
+      left: dir * scrollAmount * 2,
+      behavior: "smooth",
+    });
   };
 
   return (
-    <section className="w-full">
-      {/* Title */}
-      <h2 className="text-center text-xl font-black tracking-widest uppercase text-gray-900 mb-5">
+    <section>
+      <h2 className="text-center text-xl sm:text-2xl font-black tracking-widest uppercase text-gray-900 mb-5">
         Recommended For You
       </h2>
 
-      {/* Slider wrapper */}
       <div className="relative">
-        {/* Left arrow */}
+        {/* LEFT */}
         <Button
           onClick={() => scroll(-1)}
           size="icon"
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-[#F5C800] hover:bg-[#F5C800]/90 text-gray-800 shadow-md -translate-x-1/2"
+          className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-yellow-400 hover:bg-yellow-500 shadow"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          ‹
         </Button>
 
-        {/* Scrollable row */}
+        {/* ROW */}
         <div
           ref={rowRef}
-          className="flex gap-3 overflow-x-auto scroll-smooth scrollbar-hide px-8"
+          className="flex gap-3 overflow-x-auto scroll-smooth scrollbar-hide"
         >
           {recommendedProducts.map((product) => {
             const qty = quantities[product.id] || 0;
 
             return (
-              <Card 
-                key={product.id} 
-                className="min-w-[200px] max-w-[200px] flex-shrink-0 relative overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow bg-white rounded-lg"
+              <Card
+                key={product.id}
+                className="
+                product-card
+                group
+                flex-shrink-0
+                flex
+                flex-col
+                w-[48%]
+                sm:w-[31%]
+                md:w-[23%]
+                lg:w-[18.8%]
+                h-[380px]
+                bg-white
+                rounded-2xl
+                border
+                shadow-sm
+                hover:shadow-xl
+                hover:-translate-y-1
+                transition-all
+              "
               >
-                {/* Red badge top-left */}
+                {/* Badge */}
                 {product.badge && (
-                  <Badge className="absolute top-2 left-2 z-10 bg-[#E31837] text-white font-bold text-[10px] px-2 py-0.5 rounded">
+                  <Badge className="absolute top-2 left-2 bg-red-600 text-white text-xs">
                     {product.badge}
                   </Badge>
                 )}
 
-                {/* Image area */}
-                <div className="relative p-3 bg-white">
-                  <AspectRatio ratio={1 / 1} className="overflow-hidden">
+                {/* Image */}
+                <div className="p-3">
+                  <AspectRatio ratio={1}>
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
-                      className="object-contain"
-                      sizes="200px"
+                      className="object-contain group-hover:scale-110 transition duration-500"
                     />
                   </AspectRatio>
                 </div>
 
-                {/* Delivery text */}
-                <p className="text-center text-xs text-gray-400 italic px-2 pb-1">
+                {/* Delivery */}
+                <p className="text-center text-xs text-gray-400 italic">
                   Delivery 1-2 hours
                 </p>
 
-                {/* Product name */}
-                <p className="text-center text-sm font-extrabold text-gray-900 px-3 pb-2 line-clamp-2 min-h-[42px]">
+                {/* Name */}
+                <p className="text-center text-sm font-extrabold px-2 min-h-[44px] line-clamp-2 flex-1">
                   {product.name}
                 </p>
 
-                {/* Price row */}
-                <div className="flex items-baseline justify-center gap-1.5 px-2 pb-2 flex-wrap">
+                {/* Price */}
+                <div className="flex justify-center items-center gap-1 pb-2">
                   {product.originalPrice && (
-                    <span className="text-sm text-gray-400 line-through">
+                    <span className="text-xs line-through text-gray-400">
                       ৳{product.originalPrice}
                     </span>
                   )}
-                  <span className="text-xl font-black text-[#E31837]">
+                  <span className="text-lg lg:text-xl font-black text-red-600">
                     ৳{product.price}
                   </span>
-                  {product.unit && (
-                    <span className="text-xs text-gray-400">
-                      {product.unit}
-                    </span>
-                  )}
                 </div>
 
-                {/* Stars (only if rating) */}
-                {product.rating && (
-                  <div className="flex justify-center gap-0.5 pb-2">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <span
-                        key={i}
-                        className={`text-base ${i <= product.rating! ? 'text-[#F5C800]' : 'text-gray-300'}`}
-                      >
-                        ★
-                      </span>
-                    ))}
-                  </div>
-                )}
+                {/* Rating */}
+                <div className={product.rating ? "flex justify-center text-yellow-400 pb-2" : "flex justify-center pb-2 min-h-[24px]"}>
+                  {product.rating ? "★★★★★" : <span className="text-xs text-transparent">★★★★★</span>}
+                </div>
 
-                {/* Add to Bag / qty control */}
-                <div className="p-2 pb-4">
+                {/* Cart */}
+                <div className="p-2 pb-4 mt-auto">
                   {qty === 0 ? (
                     <Button
                       onClick={() => updateQuantity(product.id, 1)}
-                      className="w-full bg-[#E31837] hover:bg-[#E31837]/90 text-white border-none rounded-full font-bold text-sm h-10"
+                      className="w-full rounded-full bg-red-600 hover:bg-red-700"
                     >
-                      <Plus className="h-4 w-4 mr-1" />
-                      Add to Bag
+                      Add
                     </Button>
                   ) : (
-                    <div className="flex items-center justify-between bg-[#E31837] text-white rounded-full px-2 h-10">
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="h-7 w-7 text-white hover:bg-white/20 rounded-full"
+                    <div className="flex justify-between items-center bg-red-600 text-white rounded-full px-2 h-9">
+                      <Minus
+                        className="cursor-pointer"
                         onClick={() => updateQuantity(product.id, -1)}
-                      >
-                        <Minus className="h-3 w-3" />
-                      </Button>
-                      <span className="font-extrabold text-sm">{qty}</span>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="h-7 w-7 text-white hover:bg-white/20 rounded-full"
+                      />
+                      <span className="font-bold">{qty}</span>
+                      <Plus
+                        className="cursor-pointer"
                         onClick={() => updateQuantity(product.id, 1)}
-                      >
-                        <Plus className="h-3 w-3" />
-                      </Button>
+                      />
                     </div>
                   )}
                 </div>
@@ -216,15 +216,13 @@ const RecommendedForYou: React.FC = () => {
           })}
         </div>
 
-        {/* Right arrow */}
+        {/* RIGHT */}
         <Button
           onClick={() => scroll(1)}
           size="icon"
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-[#F5C800] hover:bg-[#F5C800]/90 text-gray-800 shadow-md translate-x-1/2"
+          className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-yellow-400 hover:bg-yellow-500 shadow"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 6 15 12 9 18" />
-          </svg>
+          ›
         </Button>
       </div>
     </section>
