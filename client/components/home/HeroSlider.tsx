@@ -34,12 +34,12 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
             index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
           )}
         >
-          <div className="w-full h-full bg-gray-200 overflow-hidden">
+          <div className="w-full h-full bg-transparent overflow-hidden">
             <Image
               src={banner.image}
               alt={banner.alt}
               fill
-              className="object-cover"
+              className="object-contain"
               sizes="100vw"
             />
           </div>

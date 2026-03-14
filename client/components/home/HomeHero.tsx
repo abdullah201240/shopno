@@ -133,15 +133,15 @@ const banners = [
 
 const HomeHero = () => {
   return (
-    <section className="relative z-0 w-full px-4 lg:px-6">
+    <section className="relative z-0 w-full px-0 lg:px-6">
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 h-auto w-full">
         {/* Left Sidebar - Hidden on lg and below handled in CategorySidebar */}
         <CategorySidebar categories={sidebarCategories} />
 
         {/* Right Content Area */}
-        <div className="flex-1 flex flex-col gap-2 min-h-50 sm:min-h-100 lg:h-137.5 p-4 lg:p-0">
+        <div className="flex-1 flex flex-col gap-2 min-h-fit lg:h-137.5 p-0 lg:p-0">
           {/* Slider Section */}
-          <div className="h-50 sm:h-87.5">
+          <div className="h-auto aspect-video sm:h-87.5">
             <HeroSlider banners={banners} />
           </div>
 
