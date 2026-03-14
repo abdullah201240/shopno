@@ -1,30 +1,19 @@
 "use client";
 
-import React from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import React, { useState } from "react";
 import { 
-  Menu, 
-  ChevronRight, 
+  ChevronRight,
   Apple, 
   Baby, 
   SprayCan,
   Truck,
   Shield,
-  Clock,
   Award,
   Phone,
   Dog,
   Sparkles
 } from "lucide-react";
-import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const sidebarCategories = [
@@ -85,163 +74,207 @@ const sidebarCategories = [
 ];
 
 const promoCategories = [
-  { name: "Eggs", image: "https://images.unsplash.com/photo-1518562180175-34a163b1a9a5?w=300&h=200&fit=crop" },
-  { name: "Tea", image: "https://images.unsplash.com/photo-1544787210-22c1bc1ae650?w=300&h=200&fit=crop" },
-  { name: "Soft Drinks", image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&h=200&fit=crop" },
-  { name: "Frozen", image: "https://images.unsplash.com/photo-1547514701-42782101795e?w=300&h=200&fit=crop" },
-  { name: "Coffee", image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&h=200&fit=crop" },
+  { name: "Honey", image: "/catagory/65f1547b733cb673c88fc6a3_Honey (1)_300.webp" },
+  { name: "Baby Food", image: "/catagory/65ffaf59d2372028beccb0a7_baby food & care_300.webp" },
+  { name: "Shampoo", image: "/catagory/66b826195c414d20bf52e59b_Shampoo_300.png" },
+  { name: "Conditioner", image: "/catagory/66b82633367d9a39bc43ec05_Conditioner_300.png" },
+  { name: "Home Cleaning", image: "/catagory/661f4e01c15481a97eed7698_Home Cleaning_300.png" },
+  { name: "Fashion", image: "/catagory/6682c9ddae2c9abd70f18c50_fashion and lifestyle_300.png" },
+  { name: "Milk", image: "/catagory/6682cb180a54717fc7e72781_Liquid & UHT Milk 2_300.png" },
+  { name: "Toys & Sports", image: "/catagory/66010b23933e34c33990225c_Toys & Sports _300.webp" },
+  { name: "Spices", image: "/catagory/660112dd4744fb420cd5934b_spices_300.webp" },
+  { name: "Fresh Fruit", image: "/catagory/6621025ad66f7762f1e65133_Fresh-Fruit_300.webp" },
 ];
 
 const banners = [
-  {
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop",
-    alt: "Daily Needs Promo",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=1200&h=600&fit=crop",
-    alt: "Fresh Fruits Promo",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1200&h=600&fit=crop",
-    alt: "Meat Special Promo",
-  }
+  { image: "/poster/1.png", alt: "Daily Needs Promo" },
+  { image: "/poster/2.png", alt: "Fresh Fruits Promo" },
+  { image: "/poster/3.png", alt: "Meat Special Promo" }
 ];
 
-
-
 const HomeHero = () => {
-  const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
-  );
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const [promoIndex, setPromoIndex] = useState(0);
+  const itemsPerPage = 5;
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleMouseEnter = (index: number) => {
+    setActiveMenu(index);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveMenu(null);
+  };
 
   return (
-    <section className="py-6 pt-2">
-      <div className="flex flex-col lg:flex-row gap-0 lg:gap-4 h-auto md:h-[580px]">
-        {/* Left Sidebar - Shwapno Style with Flyout */}
-        <div className="hidden lg:flex flex-col w-[255px] shrink-0 bg-white relative group-s-sidebar z-[110]">
-          
-          <div className="flex flex-col py-0 flex-1">
+    <section className="py-6 pt-2 relative z-0">
+      <div className="flex flex-col lg:flex-row gap-0 lg:gap-4 h-auto md:h-[420px]">
+        {/* Left Sidebar */}
+        <div className="hidden lg:flex flex-col w-[260px] shrink-0 bg-white relative z-[998] overflow-visible">
+          <div className="flex flex-col py-2">
             {sidebarCategories.map((cat, i) => (
               <div
                 key={i}
-                className="relative group/item"
+                className="relative"
+                onMouseEnter={() => handleMouseEnter(i)}
+                onMouseLeave={handleMouseLeave}
               >
                 <Link
                   href={`/category/${cat.slug}`}
-                  className="flex items-center justify-between px-3 py-2.5 text-[17px] font-black text-[#222222] hover:text-[#C82128] transition-all"
+                  className={cn(
+                    "flex items-center justify-between px-4 py-2.5 text-[15px] font-semibold transition-all duration-200",
+                    activeMenu === i ? "text-[#C82128] bg-gray-100" : "text-[#222222] hover:text-[#C82128] hover:bg-gray-100"
+                  )}
                 >
                   <div className="flex items-center gap-3">
-                    <cat.icon className="h-4 w-4 text-gray-300 transition-colors" />
-                    <span className="tracking-tight leading-none pt-0.5">{cat.name}</span>
+                    <cat.icon className={cn("h-4 w-4 transition-colors", activeMenu === i ? "text-[#C82128]" : "text-gray-400")} />
+                    <span className="tracking-tight leading-none">{cat.name}</span>
                   </div>
-                  <ChevronRight className="h-4 w-4 text-gray-300 group-hover/item:text-[#C82128]" />
+                  {cat.subs.length > 0 && (
+                    <ChevronRight className={cn("h-4 w-4 transition-colors", activeMenu === i ? "text-[#C82128]" : "text-gray-300")} />
+                  )}
                 </Link>
-
-                {/* Mega Menu Flyout - Exact Shwapno Style */}
-                {cat.subs && cat.subs.length > 0 && (
-                  <div className="absolute left-full top-0 w-[410px] bg-white z-[150] hidden group-hover/item:block py-2">
-                     <div className="flex flex-col">
-                        {cat.subs.map((sub, j) => (
-                          <Link 
-                            key={j} 
-                            href="#" 
-                            className="px-6 py-[12px] text-[16px] font-black text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all flex items-center justify-between group/sub"
-                          >
-                            <span>{sub}</span>
-                            <ChevronRight className="h-4 w-4 text-gray-200 group-hover/sub:text-[#C82128]" />
-                          </Link>
-                        ))}
-                     </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>
+
+          {/* Single Mega Menu - Always at top */}
+          {activeMenu !== null && sidebarCategories[activeMenu]?.subs.length > 0 && (
+            <div 
+              className="absolute left-full top-0 w-[420px] bg-white z-[999]"
+            >
+              <div className="flex flex-col py-2">
+                {sidebarCategories[activeMenu].subs.map((sub, j) => (
+                  <Link 
+                    key={j} 
+                    href="#" 
+                    className="px-6 py-2.5 text-[14px] font-medium text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all flex items-center justify-between"
+                  >
+                    <span>{sub}</span>
+                    <ChevronRight className="h-4 w-4 text-gray-200" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Right Content Area (Slider + Promo Row) */}
+        {/* Right Content Area */}
         <div className="flex-1 flex flex-col gap-4">
           {/* Slider Section */}
-          <div className="relative overflow-hidden lg:rounded-2xl rounded-2xl flex-1 h-[450px]">
-            <Carousel
-              plugins={[plugin.current]}
-              className="w-full h-full h-[450px]"
-              onMouseEnter={plugin.current.stop}
-              onMouseLeave={plugin.current.reset}
+          <div className="relative overflow-hidden flex-1 h-[280px]">
+            {banners.map((banner, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out",
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                )}
+              >
+                <div className="w-full h-full bg-gray-200 overflow-hidden">
+                  <img 
+                    src={banner.image} 
+                    alt={banner.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+            
+            {/* Navigation Buttons */}
+            <button 
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-9 w-9 bg-white/80 hover:bg-white text-gray-800 rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center"
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length)}
             >
-              <CarouselContent className="h-full h-[450px]">
-                {banners.map((banner, index) => (
-                  <CarouselItem key={index} className="h-full h-[450px]">
-                    <div className="relative h-full h-[450px] w-full overflow-hidden bg-muted">
-                      <Image 
-                        src={banner.image} 
-                        alt={banner.alt}
-                        fill
-                        className="object-cover transition-transform duration-700 hover:scale-105"
-                        priority={index === 0}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 80vw"
-                        unoptimized
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              
-              <div className="hidden md:block">
-                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 bg-[#FFD35E] text-black border-none rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 z-50" />
-                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 bg-[#FFD35E] text-black border-none rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 z-50" />
-              </div>
-              
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
-                 {banners.map((_, i) => (
-                   <div key={i} className={cn(
-                     "h-1.5 w-1.5 rounded-full transition-all",
-                     i === 0 ? "bg-[#C82128] w-4" : "bg-white/50"
-                   )}></div>
-                 ))}
-              </div>
-            </Carousel>
+              <ChevronRight className="h-5 w-5 rotate-180" />
+            </button>
+            <button 
+              className="absolute right-3 top-1/2 -translate-y-1/2 h-9 w-9 bg-white/80 hover:bg-white text-gray-800 rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center"
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % banners.length)}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+            
+            {/* Pagination Dots */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-50">
+              {banners.map((_, i) => (
+                <button 
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={cn(
+                    "h-1 rounded-full transition-all duration-300",
+                    i === currentSlide ? "bg-[#C82128] w-6" : "bg-white/60 w-2 hover:bg-white/80"
+                  )}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Promo Category Row - Aligned under the Slider */}
-          <div className="grid grid-cols-5 gap-3 h-[120px]">
-            {promoCategories.map((cat, i) => (
-              <Link key={i} href="#" className="group flex flex-col items-center relative h-full">
-                 <div className="relative w-full aspect-[1.6] rounded-xl overflow-hidden bg-white">
-                    <Image 
+          {/* Promo Category Row - Slider */}
+          <div className="relative flex items-center gap-2">
+            <button 
+              onClick={() => setPromoIndex(Math.max(0, promoIndex - 1))}
+              className="shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors z-10 border"
+              disabled={promoIndex === 0}
+            >
+              <ChevronRight className="h-5 w-5 rotate-180" />
+            </button>
+            <div className="flex-1 flex gap-3 overflow-hidden">
+              {promoCategories.slice(promoIndex * itemsPerPage, (promoIndex + 1) * itemsPerPage).map((cat, i) => (
+                <Link 
+                  key={i} 
+                  href="#" 
+                  className="group flex-1 flex flex-col bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg hover:border-[#C82128]/30 transition-all duration-300 min-w-0 h-[130px]"
+                >
+                  <div className="flex-1 overflow-hidden relative rounded-t-xl">
+                    <img 
                       src={cat.image} 
                       alt={cat.name} 
-                      fill 
-                      className="object-cover group-hover:scale-110 transition-transform duration-500" 
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                     />
-                 </div>
-                 <div className="absolute -bottom-1 left-1.5 right-1.5 bg-[#FFD35E] py-1.5 text-center rounded-lg shadow-md z-10">
-                    <span className="text-[10px] font-black uppercase text-black leading-none block">{cat.name}</span>
-                 </div>
-              </Link>
-            ))}
+                  </div>
+                  <div className="w-full bg-[#FFD35E] py-2 text-center rounded-b-xl flex-shrink-0">
+                    <span className="text-[9px] font-bold uppercase text-black leading-none block truncate px-1">{cat.name}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <button 
+              onClick={() => setPromoIndex(Math.min(Math.ceil(promoCategories.length / itemsPerPage) - 1, promoIndex + 1))}
+              className="shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors z-10 border"
+              disabled={promoIndex >= Math.ceil(promoCategories.length / itemsPerPage) - 1}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Trust Badges - Shwapno Style */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+      {/* Trust Badges */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
         {[
           { label: "60 MINS DELIVERY", icon: Truck, desc: "Available in selected areas" },
           { label: "AUTHORIZED PRODUCTS", icon: Shield, desc: "Quality guaranteed" },
           { label: "RETURN POLICY", icon: Award, desc: "T&C applies" },
           { label: "HELP LINE 16469", icon: Phone, desc: "24/7 service" },
-        ].map((badge, i) => (
+        ].map((item, i) => (
           <div 
             key={i} 
-            className="flex items-center gap-4 p-4 rounded-xl bg-white hover:shadow-md transition-all duration-300"
+            className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-[#C82128]/30 hover:shadow-md transition-all duration-300 cursor-default"
           >
-            <div className="h-10 w-10 rounded-full border border-[#C82128] flex items-center justify-center text-[#C82128]">
-              <badge.icon className="h-5 w-5" />
+            <div className="h-12 w-12 rounded-full bg-[#C82128]/10 flex items-center justify-center text-[#C82128] shrink-0">
+              <item.icon className="h-6 w-6" />
             </div>
-            <div>
-              <p className="text-[11px] font-black text-foreground uppercase tracking-tight leading-tight">{badge.label}</p>
-              <p className="text-[10px] text-muted-foreground font-bold leading-tight">{badge.desc}</p>
+            <div className="min-w-0">
+              <p className="text-[11px] font-bold text-gray-900 uppercase tracking-tight leading-tight truncate">{item.label}</p>
+              <p className="text-[10px] text-gray-500 font-medium leading-tight">{item.desc}</p>
             </div>
           </div>
         ))}
