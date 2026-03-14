@@ -13,7 +13,7 @@ const MobileNav = () => {
   const navItems = [
     { label: "Home", icon: Home, href: "/" },
     { label: "Browse", icon: Search, href: "/categories" },
-    { label: "Cart", icon: ShoppingBag, href: "/cart", badge: 3 },
+    { label: "Cart", icon: ShoppingBag, href: "/cart", badge: 0 },
     { label: "Offers", icon: Gift, href: "/offers" },
     { label: "Account", icon: User, href: "/account" },
   ];
@@ -36,13 +36,13 @@ const MobileNav = () => {
                 className="relative flex flex-col items-center justify-center w-full h-full"
               >
                 <div className={cn(
-                  "relative p-4 rounded-full shadow-premium-lg transition-all duration-300 active:scale-90",
-                  "bg-gradient-to-br from-brand-primary to-orange-500",
-                  "before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:animate-pulse"
+                  "relative p-3 rounded-full shadow-lg transition-all duration-300 active:scale-90",
+                  "bg-[#C82128]",
+                  "before:absolute before:inset-0 before:rounded-full before:bg-white/10"
                 )}>
                   <Icon className="h-6 w-6 text-white" />
-                  {item.badge && (
-                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-brand-secondary text-white border-2 border-white animate-bounce-in font-bold">
+                  {item.badge !== undefined && item.badge > 0 && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-[#FFD35E] text-black border-2 border-white font-bold">
                       {item.badge}
                     </Badge>
                   )}

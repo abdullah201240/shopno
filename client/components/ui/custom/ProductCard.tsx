@@ -32,97 +32,89 @@ const ProductCard = ({
   const [isWishlisted, setIsWishlisted] = React.useState(false);
 
   return (
-    <Card className="group relative overflow-hidden border border-border/50 shadow-sm hover:shadow-premium-lg transition-all duration-500 bg-white rounded-2xl hover:-translate-y-1">
+    <Card className="group relative overflow-hidden border border-border/60 shadow-none hover:shadow-lg transition-all duration-300 bg-white rounded-xl">
       {/* Wishlist Button */}
       <button 
         onClick={() => setIsWishlisted(!isWishlisted)}
-        className="absolute top-3 right-3 z-20 h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 hover:bg-white"
+        className="absolute top-2 right-2 z-20 h-7 w-7 rounded-full bg-white/90 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
-        <Heart className={`h-4 w-4 transition-colors duration-300 ${isWishlisted ? 'fill-brand-primary text-brand-primary' : 'text-muted-foreground hover:text-brand-primary'}`} />
+        <Heart className={`h-3.5 w-3.5 ${isWishlisted ? 'fill-[#C82128] text-[#C82128]' : 'text-gray-400'}`} />
       </button>
 
-      <CardContent className="p-3">
+      <CardContent className="p-2">
         {/* Image Section */}
-        <div className="relative mb-3">
-          <AspectRatio ratio={1 / 1} className="bg-gradient-to-br from-muted/50 to-muted rounded-xl overflow-hidden">
+        <div className="relative mb-2 px-2 pt-2">
+          <AspectRatio ratio={1 / 1} className="overflow-hidden">
             <Image
               src={image}
               alt={name}
               fill
-              className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+              className="object-contain group-hover:scale-105 transition-transform duration-500"
+              sizes="200px"
             />
-            {/* Overlay on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </AspectRatio>
           
-          {/* Discount Badge */}
           {discount && (
-            <Badge className="absolute top-2 left-2 bg-gradient-to-r from-brand-primary to-orange-500 text-white font-bold px-2.5 py-1 border-none rounded-lg shadow-md animate-bounce-in">
+            <Badge className="absolute top-2 left-2 bg-[#C82128] text-white font-bold text-[10px] px-1.5 py-0 border-none rounded">
               {discount}
             </Badge>
           )}
 
-          {/* Delivery Time Badge */}
-          <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 shadow-sm">
-            <Clock className="h-3 w-3 text-brand-secondary" />
-            <span className="text-[10px] font-semibold text-muted-foreground">{deliveryTime}</span>
+          <div className="absolute bottom-0 left-0 right-0 flex justify-center">
+             <div className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-full px-2 py-0.5 shadow-sm flex items-center gap-1">
+                <Clock className="h-2.5 w-2.5 text-brand-secondary" />
+                <span className="text-[9px] font-bold text-gray-500">{deliveryTime}</span>
+             </div>
           </div>
         </div>
 
         {/* Product Details */}
-        <div className="space-y-1.5">
-          <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{unit}</p>
-          <h3 className="font-bold text-sm line-clamp-2 leading-tight h-10 group-hover:text-brand-primary transition-colors duration-300 cursor-pointer">
+        <div className="space-y-0.5 text-center mt-2">
+          <h3 className="font-bold text-[13px] line-clamp-2 leading-tight h-8 text-gray-800">
             {name}
           </h3>
+          <p className="text-[10px] text-gray-500 font-bold uppercase">{unit}</p>
           
-          <div className="flex items-baseline gap-2 pt-0.5">
-            <span className="text-brand-primary font-black text-lg">৳{price}</span>
+          <div className="flex flex-col items-center pt-1">
+            <span className="text-[#C82128] font-black text-base">৳{price}</span>
             {originalPrice && (
-              <span className="text-muted-foreground line-through text-xs font-medium">৳{originalPrice}</span>
+              <span className="text-gray-400 line-through text-[11px]">৳{originalPrice}</span>
             )}
           </div>
         </div>
 
-        {/* Add to Cart Section */}
+        {/* Add to Bag Section - Shwapno Style */}
         <div className="mt-3">
           {quantity === 0 ? (
             <Button 
-              className="w-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 text-brand-primary hover:from-brand-primary hover:to-orange-500 hover:text-white border-none rounded-xl font-bold gap-2 group/btn transition-all duration-500 h-10 shadow-sm hover:shadow-md"
+              className="w-full bg-[#C82128] hover:bg-[#C82128]/90 text-white border-none rounded-md font-bold text-xs h-8 shadow-sm transition-all"
               onClick={() => setQuantity(1)}
             >
-              <ShoppingBag className="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300" />
-              <span>Add to Bag</span>
+              Add to Bag
             </Button>
           ) : (
-            <div className="flex items-center justify-between bg-gradient-to-r from-brand-primary to-orange-500 text-white p-1 rounded-xl h-10 animate-scale-in shadow-md">
+            <div className="flex items-center justify-between bg-[#C82128] text-white rounded-md h-8 px-1">
               <Button 
                 size="icon" 
                 variant="ghost" 
-                className="h-8 w-8 text-white hover:bg-white/20 hover:text-white rounded-lg transition-all duration-200 active:scale-90"
+                className="h-6 w-6 text-white hover:bg-white/20 rounded-md"
                 onClick={() => setQuantity(q => Math.max(0, q - 1))}
               >
-                <Minus className="h-4 w-4" />
+                <Minus className="h-3 w-3" />
               </Button>
-              <span className="font-black text-sm min-w-[2rem] text-center">{quantity}</span>
+              <span className="font-black text-xs">{quantity}</span>
               <Button 
                 size="icon" 
                 variant="ghost" 
-                className="h-8 w-8 text-white hover:bg-white/20 hover:text-white rounded-lg transition-all duration-200 active:scale-90"
+                className="h-6 w-6 text-white hover:bg-white/20 rounded-md"
                 onClick={() => setQuantity(q => q + 1)}
               >
-                <Plus className="h-4 w-4" />
+                <Plus className="h-3 w-3" />
               </Button>
             </div>
           )}
         </div>
       </CardContent>
-
-      {/* Shine Effect on Hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12"></div>
-      </div>
     </Card>
   );
 };

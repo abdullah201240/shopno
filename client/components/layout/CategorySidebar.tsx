@@ -15,7 +15,8 @@ import {
   Dog, 
   Smartphone,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Menu
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -41,12 +42,10 @@ const CategorySidebar = () => {
     <aside className="hidden lg:block w-72 shrink-0 py-6 pr-4">
       <div className="bg-white rounded-2xl border border-border/50 shadow-premium overflow-hidden">
         {/* Header */}
-        <div className="p-4 border-b border-border/50 bg-gradient-to-r from-muted/30 to-muted/10">
+        <div className="p-4 border-b border-border/50 bg-[#C82128] text-white">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-brand-primary to-orange-500 flex items-center justify-center text-white shadow-md">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <h3 className="font-bold text-lg tracking-tight">Browse Shop</h3>
+            <Menu className="h-5 w-5" />
+            <h3 className="font-black text-sm uppercase tracking-wider">SHOP BY CATEGORY</h3>
           </div>
         </div>
         
@@ -61,10 +60,10 @@ const CategorySidebar = () => {
                   key={cat.slug}
                   href={`/category/${cat.slug}`}
                   className={cn(
-                    "group flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-300 relative overflow-hidden",
+                    "group flex items-center justify-between px-3 py-2 rounded-lg transition-all duration-200 relative",
                     isActive 
-                      ? "bg-gradient-to-r from-brand-primary to-orange-500 text-white shadow-md" 
-                      : "hover:bg-brand-primary/5 hover:text-brand-primary"
+                      ? "bg-[#C82128]/10 text-[#C82128]" 
+                      : "text-gray-600 hover:bg-gray-50 hover:text-[#C82128]"
                   )}
                   style={{ animationDelay: `${index * 30}ms` }}
                 >

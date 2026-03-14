@@ -59,11 +59,12 @@
 }
 
 :root {
-  /* Centralized Colors - Premium Theme */
-  --brand-primary: #ff4f17; /* Vibrant Grocery Orange */
+  /* Centralized Colors - Shwapno Clone Theme */
+  --brand-primary: #C82128; /* Shwapno Red */
   --brand-secondary: #22c55e; /* Fresh Green */
-  --brand-accent: #FFD35E; /* Premium Gold */
-  --brand-gold: #FFD35E; /* Gold accent */
+  --brand-accent: #FFD35E; /* Shwapno Yellow */
+  --brand-gold: #FFD35E; /* Yellow accent */
+  --header-bg: #C82128;
   
   --background: oklch(0.995 0 0);
   --foreground: oklch(0.145 0 0);

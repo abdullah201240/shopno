@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Search, MapPin, User, ShoppingBag, Menu, X, Heart, Sparkles } from "lucide-react";
+import { Search, MapPin, User, ShoppingBag, Menu, X, Heart, Sparkles, Phone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,131 +17,97 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full">
-      {/* Premium Top Banner with Gradient */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-brand-primary via-orange-500 to-brand-primary bg-[length:200%_100%] animate-gradient text-white text-xs py-2 px-4 text-center font-semibold">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-50"></div>
-        <div className="relative flex items-center justify-center gap-2">
-          <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-          <span>Free delivery on orders over ৳500!</span>
-          <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+    <header className="sticky top-0 z-50 w-full shadow-sm">
+      {/* Tier 1: Red Background Header */}
+      <div className="bg-[#C82128] text-white py-2 px-4 lg:px-6">
+        <div className="container mx-auto flex items-center justify-between gap-4 h-12">
+          {/* Logo & Mobile Menu */}
+          <div className="flex items-center gap-4">
+            <Sheet>
+              <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10" />}>
+                <Menu className="h-6 w-6" />
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] p-0">
+                <div className="p-6 bg-[#C82128] text-white">
+                  <span className="text-2xl font-black tracking-tight">SHOPNO</span>
+                </div>
+                {/* Mobile Nav Links */}
+              </SheetContent>
+            </Sheet>
+
+            <Link href="/" className="flex items-center">
+               <div className="bg-white p-1 rounded">
+                  <span className="text-xl font-black text-[#C82128] tracking-tighter px-1">SHOPNO</span>
+               </div>
+            </Link>
+
+            <Button variant="outline" className="hidden xl:flex items-center gap-2 bg-transparent border-white/30 text-white hover:bg-white/10 rounded-md text-xs font-semibold h-9">
+              <MapPin className="h-4 w-4" />
+              <span>Select your delivery location</span>
+            </Button>
+          </div>
+
+          {/* Center Search Bar */}
+          <div className="flex-1 max-w-2xl mx-auto hidden md:flex items-center relative h-9">
+            <div className="relative w-full h-full flex items-center">
+              <Input
+                placeholder="Search your products"
+                className="bg-white text-black border-none h-full w-full rounded-l-md rounded-r-none placeholder:text-gray-400 text-sm focus-visible:ring-0"
+              />
+              <Button 
+                className="bg-[#FFD35E] hover:bg-[#FFD35E]/90 text-black h-full px-5 rounded-l-none rounded-r-md border-none shadow-none"
+              >
+                <Search className="h-5 w-5 stroke-[2.5px]" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Actions */}
+          <div className="flex items-center gap-3">
+            <Button variant="outline" className="hidden lg:flex items-center gap-2 bg-transparent border-white/30 text-white hover:bg-white/10 rounded-[5px] h-9 text-xs font-bold px-4">
+              <span>বাংলা</span>
+            </Button>
+            
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <Button variant="outline" className="bg-transparent border-white/30 text-white hover:bg-white/10 rounded-[5px] h-9 text-xs font-semibold px-4 flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Sign in / Sign up
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Main Header with Glass Effect */}
-      <div className="glass border-b border-white/20 shadow-premium">
+      {/* Tier 2: White Background Sub-Header */}
+      <div className="bg-white border-b hidden md:block">
         <div className="container mx-auto px-4 lg:px-6">
-          <div className="flex h-16 items-center justify-between gap-4">
-            {/* Left: Mobile Menu & Logo */}
-            <div className="flex items-center gap-2 md:gap-4 lg:gap-8">
-              <Sheet>
-                <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300" />}>
-                  <Menu className="h-6 w-6" />
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] p-0">
-                  <div className="flex flex-col h-full">
-                    <div className="p-6 bg-gradient-to-br from-brand-primary to-orange-500 text-white">
-                      <span className="text-2xl font-black tracking-tight">SHOPNO</span>
-                      <p className="text-sm opacity-80 mt-1">Your grocery partner</p>
-                    </div>
-                    <nav className="flex flex-col gap-1 p-4 flex-1">
-                      <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300">
-                        <Sparkles className="h-4 w-4" /> Home
-                      </Link>
-                      <Link href="/categories" className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300">
-                        <ShoppingBag className="h-4 w-4" /> Categories
-                      </Link>
-                      <Link href="/offers" className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300">
-                        <Heart className="h-4 w-4" /> Special Offers
-                      </Link>
-                    </nav>
-                  </div>
-                </SheetContent>
-              </Sheet>
+          <div className="flex h-10 items-center justify-between">
+            <nav className="flex items-center h-full">
+               <div className="flex items-center gap-2 font-black text-[11px] uppercase tracking-wider text-[#3c3e44] cursor-pointer hover:text-[#1593CE] w-[255px] border-r h-full pr-4">
+                  <Menu className="h-4 w-4" />
+                  SHOP BY CATEGORY
+               </div>
+               <div className="flex items-center gap-6 ml-6 overflow-x-auto no-scrollbar">
+                {[
+                  "RAMADAN SPECIAL", "GREAT DEALS", "UNILEVER-STOCK & SAVE", 
+                  "BUY & SAVE MORE", "OUR BRANDS", "WOMEN'S CORNER"
+                ].map((item) => (
+                  <Link key={item} href="#" className="text-[11px] font-black uppercase tracking-wider text-[#3c3e44] hover:text-[#1593CE] whitespace-nowrap transition-colors">
+                    {item}
+                  </Link>
+                ))}
+               </div>
+            </nav>
 
-              <Link href="/" className="flex items-center space-x-2 group">
-                <div className="relative">
-                  <span className="text-2xl font-black tracking-tight text-brand-primary group-hover:scale-105 inline-block transition-transform duration-300">SHOPNO</span>
-                  <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-brand-primary to-brand-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
-              </Link>
-
-              {/* Location Selector (Desktop) */}
-              <div className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-brand-primary/5 to-brand-secondary/5 text-sm font-semibold cursor-pointer hover:from-brand-primary/10 hover:to-brand-secondary/10 transition-all duration-300 border border-transparent hover:border-brand-primary/20 hover-lift">
-                <div className="h-8 w-8 rounded-full bg-brand-primary/10 flex items-center justify-center">
-                  <MapPin className="h-4 w-4 text-brand-primary" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-muted-foreground">Deliver to</span>
-                  <span className="text-foreground">Select Location</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Center: Search Bar */}
-            <div className="flex-1 max-w-xl mx-auto hidden md:flex items-center relative group">
-              <div className="relative w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-brand-primary transition-colors duration-300" />
-                <Input
-                  placeholder="Search for groceries, fruits, vegetables..."
-                  className="pl-11 pr-24 bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-brand-primary/30 h-11 w-full rounded-2xl text-sm transition-all duration-300 focus:bg-white focus:shadow-lg"
-                />
-                <Button 
-                  size="sm" 
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 px-4 rounded-xl bg-gradient-to-r from-brand-gold to-yellow-400 hover:from-brand-gold hover:to-yellow-500 text-black font-bold hidden md:flex shadow-md hover:shadow-lg transition-all duration-300 active:scale-95"
-                >
-                  Search
-                </Button>
-              </div>
-            </div>
-
-            {/* Right: User Actions */}
-            <div className="flex items-center gap-1 md:gap-2">
-              <Button variant="ghost" size="icon" className="md:hidden hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300">
-                <Search className="h-5 w-5" />
-              </Button>
-
-              {/* Wishlist */}
-              <Button variant="ghost" size="icon" className="hidden md:flex hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300 relative">
-                <Heart className="h-5 w-5" />
-                <Badge className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 text-[9px] bg-brand-secondary border-2 border-background">
-                  2
-                </Badge>
-              </Button>
-
-              <div className="hidden md:flex items-center">
-                <DropdownMenu>
-                  <DropdownMenuTrigger render={<Button variant="ghost" className="gap-2 font-semibold hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300 rounded-xl" />}>
-                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-brand-primary to-orange-400 flex items-center justify-center">
-                      <User className="h-4 w-4 text-white" />
-                    </div>
-                    <span className="hidden lg:inline">Account</span>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl shadow-premium-lg border border-border/50 animate-scale-in">
-                    <div className="px-3 py-2 mb-2">
-                      <p className="font-bold text-sm">Welcome!</p>
-                      <p className="text-xs text-muted-foreground">Sign in for best experience</p>
-                    </div>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Profile</DropdownMenuItem>
-                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">My Orders</DropdownMenuItem>
-                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Wishlist</DropdownMenuItem>
-                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Settings</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer text-brand-primary font-semibold hover:bg-brand-primary/10 focus:bg-brand-primary/10">Sign In</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-
-              {/* Cart Button */}
-              <Button variant="ghost" size="icon" className="relative hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300 group">
-                <div className="relative">
-                  <ShoppingBag className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-brand-primary text-white border-2 border-background animate-bounce-in">
-                    3
-                  </Badge>
-                </div>
-              </Button>
+            <div className="flex items-center gap-6">
+               <Link href="#" className="flex items-center gap-1.5 text-[11px] font-bold text-[#3c3e44] hover:text-[#C82128]">
+                 <MapPin className="h-3.5 w-3.5" />
+                 Our outlets
+               </Link>
+               <Link href="#" className="flex items-center gap-1.5 text-[11px] font-bold text-[#3c3e44] hover:text-[#C82128]">
+                 <Phone className="h-3.5 w-3.5" />
+                 Help line
+               </Link>
             </div>
           </div>
         </div>

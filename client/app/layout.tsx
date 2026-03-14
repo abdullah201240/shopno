@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import MobileNav from "@/components/layout/MobileNav";
+import FloatingCart from "@/components/layout/FloatingCart";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SHOPNO - Fast Grocery Delivery",
-  description: "Fresh groceries delivered in 60 minutes. Shop fresh fruits, vegetables, meat, dairy and more with same-day delivery.",
+  title: "Shwapno - Best Grocery Online Shop in Bangladesh",
+  description: "Shop for groceries, fresh vegetables, fruits and daily needs from Shwapno.",
 };
-
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function RootLayout({
   children,
@@ -26,10 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <TooltipProvider>{children}</TooltipProvider>
+      <body className={cn(inter.className, "min-h-screen bg-background antialiased")}>
+        <TooltipProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <FloatingCart />
+            <main className="flex-1 pb-20 md:pb-0">{children}</main>
+            <Footer />
+            <MobileNav />
+          </div>
+        </TooltipProvider>
       </body>
     </html>
   );
