@@ -12,13 +12,14 @@ const Footer = () => {
           {/* Brand Info */}
           <div>
             <Link href="/" className="inline-block mb-4">
-              <Image
-                src="/shwapno_logo.png"
-                alt="Shopno"
-                width={120}
-                height={40}
-                className="h-auto w-auto"
-              />
+              <div className="relative h-12 w-32">
+                <Image
+                  src="/shwapno_logo.png"
+                  alt="Shopno"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </Link>
             <p className="text-gray-500 text-sm mb-4">
               Your trusted online grocery store in Bangladesh. Fresh groceries delivered to your doorstep.

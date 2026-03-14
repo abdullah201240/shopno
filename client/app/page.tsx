@@ -6,6 +6,7 @@ import WeekendDeals from "@/components/home/WeekendDeals";
 import RecommendedForYou from "@/components/home/RecommendedForYou";
 import HotAndTrending from "@/components/home/HotAndTrending";
 import TrustBadges from "@/components/home/TrustBadges";
+import PromoBannerGrid from "@/components/home/PromoBannerGrid";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
         {/* Best Deals Section */}
         <BestDeals />
         <WeekendDeals />
+        <PromoBannerGrid/>
       </div>
     </>
   );

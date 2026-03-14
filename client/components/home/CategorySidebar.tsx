@@ -25,12 +25,13 @@ interface CategorySidebarProps {
 }
 
 interface MegaMenuProps {
+  categorySlug: string;
   subs: SubCategory[];
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 }
 
-const MegaMenu: React.FC<MegaMenuProps> = ({ subs, onMouseEnter, onMouseLeave }) => {
+const MegaMenu: React.FC<MegaMenuProps> = ({ categorySlug, subs, onMouseEnter, onMouseLeave }) => {
   const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -63,7 +64,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ subs, onMouseEnter, onMouseLeave })
           >
             <Link 
               key={j} 
-              href={`#`}
+              href={`/category/${categorySlug}/${sub.slug}`}
               className="px-6 py-2.5 text-[14px] font-medium text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all flex items-center justify-between"
             >
               <span>{sub.name}</span>
@@ -79,8 +80,8 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ subs, onMouseEnter, onMouseLeave })
                   {sub.subSubs.map((subSub, k) => (
                     <Link
                       key={k}
-                      href="#"
-                      className="px-6 py-2 text-[13px] text-[#444444] hover:text-[#C82128] hover:bg-gray-50 transition-all"
+                      href={`/category/${categorySlug}/${sub.slug}/${subSub.toLowerCase().replace(/ /g, '-')}`}
+                      className="px-6 py-2 text-[13px] text-[#444444] hover:text-[#C82128] hover:bg-gray-50 transition-all block"
                     >
                       {subSub}
                     </Link>
@@ -159,6 +160,7 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({ categories }) => {
           onMouseLeave={handleMegaMenuMouseLeave}
         >
           <MegaMenu 
+            categorySlug={categories[activeMenu].slug}
             subs={categories[activeMenu].subs} 
             onMouseEnter={handleMegaMenuMouseEnter}
             onMouseLeave={handleMegaMenuMouseLeave}

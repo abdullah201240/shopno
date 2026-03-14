@@ -172,17 +172,18 @@ const Header = () => {
                           <div className="bg-gray-50/50">
                             {category.subs.map((sub, subIndex) => (
                               <div key={subIndex}>
-                                <button
-                                  onClick={() => toggleSubCategory(subIndex)}
-                                  className={`w-full flex items-center justify-between pl-12 pr-4 py-3 text-[13px] font-semibold transition-colors ${
-                                    expandedSubCategory === subIndex ? 'text-[#C82128]' : 'text-[#555] hover:text-[#C82128]'
-                                  }`}
-                                >
+                                  <Link
+                                    onClick={() => toggleSubCategory(subIndex)}
+                                    href={`/category/${category.slug}/${sub.slug}`}
+                                    className={`w-full flex items-center justify-between pl-12 pr-4 py-3 text-[13px] font-semibold transition-colors ${
+                                      expandedSubCategory === subIndex ? 'text-[#C82128]' : 'text-[#555] hover:text-[#C82128]'
+                                    }`}
+                                  >
                                   <span>{sub.name}</span>
                                   {sub.subSubs.length > 0 && (
                                     expandedSubCategory === subIndex ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />
                                   )}
-                                </button>
+                                  </Link>
 
                                 {/* Sub-subcategories */}
                                 {expandedSubCategory === subIndex && sub.subSubs.length > 0 && (
@@ -190,7 +191,7 @@ const Header = () => {
                                     {sub.subSubs.map((subSub, ssIndex) => (
                                       <Link
                                         key={ssIndex}
-                                        href="#"
+                                        href={`/category/${category.slug}/${sub.slug}/${subSub.toLowerCase().replace(/ /g, '-')}`}
                                         className="block pl-16 pr-4 py-2.5 text-[12px] font-medium text-gray-500 hover:text-[#C82128] hover:bg-gray-100/50"
                                       >
                                         {subSub}
@@ -291,7 +292,7 @@ const Header = () => {
                             <div className="flex flex-col py-2">
                               {category.subs.map((sub, subIdx) => (
                                 <div key={subIdx} className="group/subcategory w-full">
-                                  <Link href={`#`} className="flex items-center justify-between px-6 py-2.5 text-[14px] font-medium text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all">
+                                  <Link href={`/category/${category.slug}/${sub.slug}`} className="flex items-center justify-between px-6 py-2.5 text-[14px] font-medium text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all">
                                     <span>{sub.name}</span>
                                     {sub.subSubs.length > 0 && (
                                       <ChevronRight className="h-4 w-4 text-gray-300 group-hover/subcategory:text-[#C82128]" />
@@ -303,7 +304,7 @@ const Header = () => {
                                     <div className="absolute top-0 left-full w-50 bg-white border-l border-gray-100 shadow-lg opacity-0 invisible group-hover/subcategory:opacity-100 group-hover/subcategory:visible transition-all duration-200 min-h-full z-102">
                                       <div className="flex flex-col py-2">
                                         {sub.subSubs.map((subSub, sssIdx) => (
-                                          <Link key={sssIdx} href={`#`} className="block px-6 py-2 text-[13px] text-[#444444] hover:text-[#C82128] hover:bg-gray-50 transition-all">
+                                          <Link key={sssIdx} href={`/category/${category.slug}/${sub.slug}/${subSub.toLowerCase().replace(/ /g, '-')}`} className="block px-6 py-2 text-[13px] text-[#444444] hover:text-[#C82128] hover:bg-gray-50 transition-all">
                                             {subSub}
                                           </Link>
                                         ))}
