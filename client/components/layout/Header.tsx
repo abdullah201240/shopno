@@ -260,13 +260,65 @@ const Header = () => {
       </div>
 
       {/* Tier 2: White Background Sub-Header */}
-      <div className="bg-white border-b border-gray-100 overflow-x-auto no-scrollbar">
+      <div className="bg-white border-b border-gray-100 overflow-x-auto lg:overflow-visible no-scrollbar">
         <div className="w-full mx-auto px-4 lg:px-10">
           <div className="flex h-10 items-center justify-between min-w-max lg:min-w-0">
             <nav className="flex items-center h-full">
-              <div className="hidden lg:flex items-center gap-2 font-black text-[11px] uppercase tracking-wider text-[#3c3e44] cursor-pointer hover:text-[#C82128] w-63.75 h-full pr-4 border-r border-gray-100">
-                <Menu className="h-4 w-4" />
-                SHOP BY CATEGORY
+              <div className="relative group hidden lg:flex items-center w-[255px] h-full pr-4 border-r border-gray-100 cursor-pointer">
+                <div className="flex items-center gap-2 font-black text-[11px] uppercase tracking-wider text-[#3c3e44] hover:text-[#C82128]">
+                  <Menu className="h-4 w-4" />
+                  SHOP BY CATEGORY
+                </div>
+
+                {/* Desktop Category Dropdown */}
+                <div className="absolute top-10 left-0 w-[240px] bg-white border border-gray-200 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] rounded-b-md">
+                  <div className="flex flex-col py-2 w-full">
+                    {mobileCategories.map((category, idx) => (
+                      <div key={idx} className="group/category w-full">
+                        <Link href={`/category/${category.slug}`} className="flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 text-[#222222] hover:text-[#C82128] transition-colors w-full">
+                          <div className="flex items-center gap-3">
+                            <category.icon className="h-4 w-4 text-gray-400 group-hover/category:text-[#C82128] transition-colors" />
+                            <span className="text-[15px] font-semibold tracking-tight leading-none">{category.name}</span>
+                          </div>
+                          {category.subs.length > 0 && (
+                            <ChevronRight className="h-4 w-4 text-gray-300 group-hover/category:text-[#C82128]" />
+                          )}
+                        </Link>
+                        
+                        {/* Desktop Subcategories Flyout (Layer 2) */}
+                        {category.subs.length > 0 && (
+                          <div className="absolute top-0 left-full w-[420px] bg-white shadow-xl opacity-0 invisible group-hover/category:opacity-100 group-hover/category:visible transition-all duration-200 min-h-full z-[101]">
+                            <div className="flex flex-col py-2">
+                              {category.subs.map((sub, subIdx) => (
+                                <div key={subIdx} className="group/subcategory w-full">
+                                  <Link href={`#`} className="flex items-center justify-between px-6 py-2.5 text-[14px] font-medium text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all">
+                                    <span>{sub.name}</span>
+                                    {sub.subSubs.length > 0 && (
+                                      <ChevronRight className="h-4 w-4 text-gray-300 group-hover/subcategory:text-[#C82128]" />
+                                    )}
+                                  </Link>
+
+                                  {/* Desktop Sub-Subcategories Flyout (Layer 3) */}
+                                  {sub.subSubs.length > 0 && (
+                                    <div className="absolute top-0 left-full w-[200px] bg-white border-l border-gray-100 shadow-lg opacity-0 invisible group-hover/subcategory:opacity-100 group-hover/subcategory:visible transition-all duration-200 min-h-full z-[102]">
+                                      <div className="flex flex-col py-2">
+                                        {sub.subSubs.map((subSub, sssIdx) => (
+                                          <Link key={sssIdx} href={`#`} className="block px-6 py-2 text-[13px] text-[#444444] hover:text-[#C82128] hover:bg-gray-50 transition-all">
+                                            {subSub}
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
               <div className="flex items-center gap-4 lg:gap-6 lg:ml-6">
                 {[
