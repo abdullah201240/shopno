@@ -2,19 +2,37 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { ChevronRight, Home, SlidersHorizontal, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CustomProductCard from "@/components/ui/custom/ProductCard";
 
-// Mock Product Database for Category Page
+// Category Banner Images Map
+const CATEGORY_BANNERS: Record<string, string> = {
+  food: "/65f7ef3a115075f231e964dc_Food.png",
+  "home-cleaning": "/661f4e01c15481a97eed7698_Home Cleaning_300.png",
+  beauty: "/66b826195c414d20bf52e59b_Shampoo_300.png",
+  baby: "/65ffaf59d2372028beccb0a7_baby food & care_300.webp",
+  fashion: "/6682c9ddae2c9abd70f18c50_fashion and lifestyle_300.png",
+};
 const MOCK_DB = [
   { id: 1, name: "Fresh Instant Full Cream Milk Powder 500gm", image: "/product/65fa9509115075f231ec6e53_Fresh-Instant-Full-Cream-Milk-Powder-500gm_1_220.webp", oldPrice: 480, newPrice: 435, discount: 45, unit: "Per Piece", category: "food", sub: "beverages" },
   { id: 2, name: "Diploma Instant Full Cream Milk Powder 500gm", image: "/product/65fa9503115075f231ec697e_Diploma-Instant-Full-Cream-Milk-Powder-500gm-Foil-Pack_1_220.webp", oldPrice: 460, newPrice: 410, discount: 50, unit: "Per Piece", category: "food", sub: "beverages" },
   { id: 3, name: "Danish Full Cream Milk Powder 1kg", image: "/product/65fa9520115075f231ec83c2_Danish-Full-Cream-Milk-Powder-1kg_1_220.webp", oldPrice: 1300, newPrice: 1200, discount: 100, unit: "Per Piece", category: "food", sub: "beverages" },
-  { id: 6, name: "Nescafe Classic Coffee 100gm", image: "/product/65fa9389115075f231ec4af2_Nescafe-Classic-Coffee-100gm-Glass-Bottle_1_220.webp", oldPrice: 350, newPrice: 299, discount: 51, unit: "Per Piece", category: "food", sub: "beverages" },
-  { id: 10, name: "Surf Excel Detergent 1kg", image: "/product/68b575087d266676045747a7_Surf-Excel-1kg_1_220.webp", oldPrice: 420, newPrice: 365, discount: 55, unit: "Per Piece", category: "home-cleaning", sub: "laundry" },
-  { id: 11, name: "Vim Dishwash Liquid 950ml", image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp", oldPrice: 280, newPrice: 245, discount: 35, unit: "Per Piece", category: "home-cleaning", sub: "dish-cleaner" },
+  { id: 4, name: "Nescafe Classic Coffee 100gm", image: "/product/65fa9389115075f231ec4af2_Nescafe-Classic-Coffee-100gm-Glass-Bottle_1_220.webp", oldPrice: 350, newPrice: 299, discount: 51, unit: "Per Piece", category: "food", sub: "beverages" },
+  { id: 5, name: "Surf Excel Detergent 1kg", image: "/product/68b575087d266676045747a7_Surf-Excel-1kg_1_220.webp", oldPrice: 420, newPrice: 365, discount: 55, unit: "Per Piece", category: "home-cleaning", sub: "laundry" },
+  { id: 6, name: "Vim Dishwash Liquid 950ml", image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp", oldPrice: 280, newPrice: 245, discount: 35, unit: "Per Piece", category: "home-cleaning", sub: "dish-cleaner" },
+  { id: 7, name: "Aarong Dairy UHT Milk 1L", image: "/product/6682cb180a54717fc7e72781_Liquid & UHT Milk 2_300.png", oldPrice: 120, newPrice: 99, discount: 21, unit: "Per Piece", category: "food", sub: "dairy" },
+  { id: 8, name: "Radhuni Turmeric Powder 500gm", image: "/product/660112dd4744fb420cd5934b_spices_300.webp", oldPrice: 180, newPrice: 145, discount: 35, unit: "Per Piece", category: "food", sub: "spices" },
+  { id: 9, name: "Pran Chinigura Rice 5kg", image: "/product/6621025ad66f7762f1e65133_Fresh-Fruit_300.webp", oldPrice: 650, newPrice: 580, discount: 70, unit: "Per Piece", category: "food", sub: "rice" },
+  { id: 10, name: "Shwapno Salt 1kg", image: "/product/66011327d918e48902374088_Salt Sugar_300.webp", oldPrice: 45, newPrice: 35, discount: 10, unit: "Per Piece", category: "food", sub: "essentials" },
+  { id: 11, name: "Unilever Sunlight Soap 4pcs", image: "/product/69a001f5e42d6823d84676f0_uniliverbanner_D_1_1552.webp", oldPrice: 80, newPrice: 65, discount: 15, unit: "Per Piece", category: "home-cleaning", sub: "soap" },
+  { id: 12, name: "Baby Food & Care Essential", image: "/product/65ffaf59d2372028beccb0a7_baby food & care_300.webp", oldPrice: 350, newPrice: 299, discount: 51, unit: "Per Piece", category: "baby", sub: "food" },
+  { id: 13, name: "Shampoo Anti Dandruff 200ml", image: "/product/66b826195c414d20bf52e59b_Shampoo_300.png", oldPrice: 280, newPrice: 245, discount: 35, unit: "Per Piece", category: "beauty", sub: "haircare" },
+  { id: 14, name: "Conditioner Smooth & Shine 200ml", image: "/product/66b82633367d9a39bc43ec05_Conditioner_300.png", oldPrice: 250, newPrice: 215, discount: 35, unit: "Per Piece", category: "beauty", sub: "haircare" },
+  { id: 15, name: "Home Cleaning Combo Pack", image: "/product/661f4e01c15481a97eed7698_Home Cleaning_300.png", oldPrice: 550, newPrice: 450, discount: 100, unit: "Per Piece", category: "home-cleaning", sub: "combo" },
+  { id: 16, name: "Fashion & Lifestyle Essentials", image: "/product/6682c9ddae2c9abd70f18c50_fashion and lifestyle_300.png", oldPrice: 1200, newPrice: 999, discount: 201, unit: "Per Piece", category: "fashion", sub: "lifestyle" },
 ];
 
 export default function CategoryPage() {
@@ -121,7 +139,23 @@ export default function CategoryPage() {
           <div className="flex-1 min-w-0">
             
             {/* Thematic Banner */}
-            <div className="w-full h-40 md:h-45 bg-linear-to-r from-emerald-800 to-green-600 rounded-2xl mb-6 relative overflow-hidden flex items-center px-6 md:px-10 shadow-sm">
+            <div className="w-full h-40 md:h-45 rounded-2xl mb-6 relative overflow-hidden flex items-center px-6 md:px-10 shadow-sm">
+               {/* Category Image Background */}
+               {CATEGORY_BANNERS[rootCategory] ? (
+                 <Image 
+                   src={CATEGORY_BANNERS[rootCategory]}
+                   alt={title}
+                   fill
+                   className="object-cover"
+                   priority
+                 />
+               ) : (
+                 <div className="absolute inset-0 bg-linear-to-r from-emerald-800 to-green-600"></div>
+               )}
+               
+               {/* Overlay for text readability */}
+               <div className="absolute inset-0 bg-black/30"></div>
+               
                <div className="relative z-10 w-full sm:w-2/3">
                  <h1 className="text-3xl md:text-5xl font-black text-white capitalize drop-shadow-md mb-2 title-shadow">
                    {title}
@@ -132,8 +166,7 @@ export default function CategoryPage() {
                </div>
                
                {/* Decorative background curve */}
-               <div className="absolute right-0 top-0 bottom-0 w-[60%] bg-black/10 rounded-l-full blur-2xl transform translate-x-1/3"></div>
-               <div className="absolute right-0 top-0 bottom-0 w-[40%] bg-white/10 rounded-l-full blur-xl transform translate-x-1/4"></div>
+               <div className="absolute right-0 top-0 bottom-0 w-[60%] bg-white/10 rounded-l-full blur-2xl transform translate-x-1/3"></div>
             </div>
 
             {/* Sorting Pills Bar (Shwapno Implementation) */}
