@@ -84,12 +84,12 @@ const BestDeals: React.FC = () => {
   return (
     <section className="px-2 py-4">
       {/* Banner Image */}
-      <div className="relative w-full h-32 md:h-40 mb-4 rounded-xl overflow-hidden">
+      <div className="relative w-full h-40 md:h-48 lg:h-52 mb-4 rounded-xl overflow-hidden">
         <Image
           src="/catagory/69a001f5e42d6823d84676f0_uniliverbanner_D_1_1552.webp"
           alt="Best Deals Banner"
           fill
-          className="object-cover"
+          className="object-contain bg-gray-50"
         />
       </div>
 
@@ -111,7 +111,6 @@ const BestDeals: React.FC = () => {
         <div
           ref={rowRef}
           className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide"
-          style={{ scrollBehavior: "smooth" }}
         >
           {bestDealsProducts.map((product) => {
             const qty = quantities[product.id] || 0;
@@ -119,7 +118,7 @@ const BestDeals: React.FC = () => {
             return (
               <div
                 key={product.id}
-                className="flex-shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[18%] bg-white self-stretch"
+                className="shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[18%] bg-white self-stretch"
               >
                 {/* Badge */}
                 {product.badge && (
@@ -146,7 +145,7 @@ const BestDeals: React.FC = () => {
                 </p>
 
                 {/* Name */}
-                <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-[32px]">
+                <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-8">
                   {product.name}
                 </p>
 
