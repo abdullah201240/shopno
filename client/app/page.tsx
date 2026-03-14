@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import HomeHero from "@/components/home/HomeHero";
 import CategoryGrid from "@/components/home/CategoryGrid";
 import ProductGrid from "@/components/home/ProductGrid";
+import HotAndTrending from "@/components/home/HotAndTrending";
+import BreadAndMore from "@/components/home/BreadAndMore";
 import { MOCK_PRODUCTS as trendingProducts } from "@/lib/data/products";
 
 export default function Home() {
@@ -54,6 +56,9 @@ export default function Home() {
         </div>
         <ProductGrid products={trendingProducts} />
       </section>
+
+      {/* Bread & More Section */}
+      <BreadAndMore />
 
       {/* Download App Banner - Shwapno Style */}
       <div className="relative overflow-hidden rounded-2xl bg-[#C82128] p-8 md:p-12 text-white">
