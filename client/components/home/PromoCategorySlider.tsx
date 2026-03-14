@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface PromoCategory {
   name: string;
@@ -13,27 +14,14 @@ interface PromoCategorySliderProps {
   categories: PromoCategory[];
 }
 
-const PromoCategorySlider: React.FC<PromoCategorySliderProps> = ({ categories }) => {
-  const [promoIndex, setPromoIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+const PromoCategorySlider: React.FC<PromoCategorySliderProps> = ({ categories }) => { 
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) setItemsPerPage(2);
-      else if (window.innerWidth < 1024) setItemsPerPage(3);
-      else setItemsPerPage(5);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   return (
     <div className="relative w-full group">
       {/* Left Arrow — Hidden on mobile, visible on hover desktop */}
       <button
+        title="Scroll Left"
         onClick={() => {
           const container = document.getElementById('promo-slider-container');
           if (container) container.scrollBy({ left: -300, behavior: 'smooth' });
@@ -52,14 +40,16 @@ const PromoCategorySlider: React.FC<PromoCategorySliderProps> = ({ categories })
           <Link
             key={i}
             href="#"
-            className="flex-shrink-0 w-[30%] sm:w-[22%] lg:flex-1 group flex flex-col rounded-xs overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
+            className="shrink-0 w-[32%] sm:w-[32%] lg:w-[20%] group flex flex-col rounded-xs overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
           >
             {/* Image area */}
-            <div className="relative h-[100px] sm:h-[180px] overflow-hidden bg-transparent">
-              <img
+            <div className="relative h-25 sm:h-45 overflow-hidden bg-transparent">
+              <Image
                 src={cat.image}
                 alt={cat.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                sizes="(max-width: 640px) 32vw, 20vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
 
@@ -75,6 +65,7 @@ const PromoCategorySlider: React.FC<PromoCategorySliderProps> = ({ categories })
 
       {/* Right Arrow — Hidden on mobile, visible on hover desktop */}
       <button
+        title="Scroll Right"
         onClick={() => {
           const container = document.getElementById('promo-slider-container');
           if (container) container.scrollBy({ left: 300, behavior: 'smooth' });

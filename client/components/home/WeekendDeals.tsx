@@ -80,6 +80,60 @@ const products: Product[] = [
     discount: 70,
     unit: "Per Piece",
   },
+  {
+    id: 6,
+    name: "Nescafe Classic Coffee 100gm Glass Bottle",
+    image: "/product/65fa9389115075f231ec4af2_Nescafe-Classic-Coffee-100gm-Glass-Bottle_1_220.webp",
+    oldPrice: 350,
+    newPrice: 299,
+    discount: 51,
+    unit: "Per Piece",
+  },
+  {
+    id: 7,
+    name: "Nescafe Classic 200gm Jar",
+    image: "/product/65fa9389115075f231ec4af6_Nescafe-Classic-200gm-Jar_1_220.webp",
+    oldPrice: 650,
+    newPrice: 580,
+    discount: 70,
+    unit: "Per Piece",
+  },
+  {
+    id: 8,
+    name: "Diploma Instant Full Cream Milk Powder 1kg",
+    image: "/product/65fa9503115075f231ec6941_Diploma-Instant-Full-Cream-Milk-Powder-1kg-Foil-Pack_1_220.webp",
+    oldPrice: 900,
+    newPrice: 799,
+    discount: 101,
+    unit: "Per Piece",
+  },
+  {
+    id: 9,
+    name: "Starship Full Cream Milk Powder 1kg",
+    image: "/product/68f6095d974218ccf6c62f0a_Starship-Full-Cream-Milk-Power-1kg-Poly_1_220.webp",
+    oldPrice: 850,
+    newPrice: 750,
+    discount: 100,
+    unit: "Per Piece",
+  },
+  {
+    id: 10,
+    name: "Surf Excel Detergent 1kg",
+    image: "/product/68b575087d266676045747a7_Surf-Excel-1kg_1_220.webp",
+    oldPrice: 420,
+    newPrice: 365,
+    discount: 55,
+    unit: "Per Piece",
+  },
+  {
+    id: 11,
+    name: "Vim Dishwash Liquid 950ml",
+    image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp",
+    oldPrice: 280,
+    newPrice: 245,
+    discount: 35,
+    unit: "Per Piece",
+  },
 ];
 
 // ─── Countdown Hook ────────────────────────────────────────────────────────────
@@ -116,7 +170,7 @@ function useCountdown(initialHours = 1, initialMinutes = 35, initialSeconds = 1)
 
 function SpecialSavingsBanner() {
   return (
-    <div className="w-full relative overflow-hidden rounded-r-lg">
+    <div className="w-full relative overflow-hidden rounded-lg">
       <Image
         src="/6746bb7e042626c43a0ab923_SPECIAL SAVINGS-01 (1).webp"
         alt="Special Savings"
@@ -142,10 +196,10 @@ export default function WeekendDeals() {
     }
   };
   return (
-    <div className="grid grid-cols-[1.5fr_18rem] rounded-lg overflow-hidden shadow-sm max-w-315 w-full gap-6 border border-gray-200">
+    <div className="grid grid-cols-[1.5fr_18rem]  overflow-hidden shadow-sm max-w-315 w-full gap-6 border border-gray-200">
 
       {/* ── LEFT: Main Deals Section ── */}
-      <div className="flex-1 bg-[#C1C9D5] p-2">
+      <div className="flex-1 bg-[#C1C9D5] p-2 rounded-lg">
 
         {/* Compact Header Row: Title, Countdown, and Categories in one row */}
         <div className="flex items-center gap-4 mb-4 flex-nowrap">
@@ -166,14 +220,14 @@ export default function WeekendDeals() {
 
           {/* Category Tabs - Compact & Scrollable */}
           <div className="flex items-center gap-2 flex-1 min-w-0 max-w-[320px]">
-            <button 
+            <button
               title="Scroll left"
               className="w-6 h-6 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gray-400 hover:bg-gray-50 transition-colors shrink-0"
               onClick={scrollCategoryLeft}
             >
               <ChevronRight className="w-3 h-3 rotate-180" />
             </button>
-            
+
             <div ref={categoryScrollRef} className="flex-1 overflow-x-auto scrollbar-hide">
               <div className="flex items-center gap-1.5 py-0.5">
                 {categories.map((cat) => (
@@ -202,8 +256,8 @@ export default function WeekendDeals() {
         {/* Product Cards - Grid with 4 columns to fill full width */}
         <div className="grid grid-cols-4 gap-2.5 pb-2">
           {products.slice(0, 4).map((product) => (
-            <CustomProductCard 
-              key={product.id} 
+            <CustomProductCard
+              key={product.id}
               id={String(product.id)}
               name={product.name}
               image={product.image}
