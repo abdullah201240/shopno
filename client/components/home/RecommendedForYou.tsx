@@ -3,9 +3,6 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { Plus, Minus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface Product {
@@ -13,10 +10,8 @@ interface Product {
   name: string;
   price: number;
   originalPrice?: number;
-  unit?: string;
   badge?: string;
   image: string;
-  rating?: number;
 }
 
 const recommendedProducts: Product[] = [
@@ -30,7 +25,6 @@ const recommendedProducts: Product[] = [
     id: "2",
     name: "Pusti Soyabean Oil 5Ltr.",
     price: 955,
-    unit: "Per Piece",
     image: "/product/686cf6633d66137b62495be2_Aura-Milk-Pusti-1kg_1_220.webp",
   },
   {
@@ -38,7 +32,6 @@ const recommendedProducts: Product[] = [
     name: "Quaker Oats Jar 450gm",
     price: 360,
     originalPrice: 380,
-    unit: "Per Piece",
     badge: "৳20 OFF",
     image: "/product/65fa9663d61902ef2307a5f8_Quaker-Oats-1000100gm-Jar_1_220.webp",
   },
@@ -47,16 +40,13 @@ const recommendedProducts: Product[] = [
     name: "Noah Blender 888",
     price: 1299,
     originalPrice: 1899,
-    unit: "Per Piece",
     badge: "৳600 OFF",
-    rating: 5,
     image: "/product/6735d10b767644156106c057_Electric-Kettle-1-8L_1_220.webp",
   },
   {
     id: "5",
     name: "Pureit Classic Germ Kill Kit",
     price: 800,
-    unit: "Per Piece",
     image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp",
   },
   {
@@ -64,7 +54,6 @@ const recommendedProducts: Product[] = [
     name: "Electric Kettle 1.8L",
     price: 625,
     originalPrice: 1380,
-    unit: "Per Piece",
     badge: "৳755 OFF",
     image: "/product/6735d10b767644156106c057_Electric-Kettle-1-8L_1_220.webp",
   },
@@ -83,147 +72,116 @@ const RecommendedForYou = () => {
 
   const scroll = (dir: number) => {
     if (!rowRef.current) return;
-    const card = rowRef.current.querySelector(".product-card") as HTMLElement;
-    if (!card) return;
-
-    const gap = 12;
-    const scrollAmount = card.offsetWidth + gap;
-
-    rowRef.current.scrollBy({
-      left: dir * scrollAmount * 2,
-      behavior: "smooth",
-    });
+    rowRef.current.scrollBy({ left: dir * 320, behavior: "smooth" });
   };
 
   return (
-    <section>
-      <h2 className="text-center text-xl sm:text-2xl font-black tracking-widest uppercase text-gray-900 mb-5">
+    <section className="px-2 py-4">
+      <h2 className="text-center text-lg font-bold uppercase tracking-widest text-gray-900 mb-4">
         Recommended For You
       </h2>
 
       <div className="relative">
         {/* LEFT */}
-        <Button
+        <button
           onClick={() => scroll(-1)}
-          size="icon"
-          className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-yellow-400 hover:bg-yellow-500 shadow"
+          className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-yellow-400 text-black text-lg flex items-center justify-center"
         >
           ‹
-        </Button>
+        </button>
 
         {/* ROW */}
         <div
           ref={rowRef}
-          className="flex gap-3 overflow-x-auto scroll-smooth scrollbar-hide"
+          className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide"
+          style={{ scrollBehavior: "smooth" }}
         >
           {recommendedProducts.map((product) => {
             const qty = quantities[product.id] || 0;
 
             return (
-              <Card
+              <div
                 key={product.id}
-                className="
-                product-card
-                group
-                flex-shrink-0
-                flex
-                flex-col
-                w-[48%]
-                sm:w-[31%]
-                md:w-[23%]
-                lg:w-[18.8%]
-                h-[380px]
-                bg-white
-                rounded-2xl
-                border
-                shadow-sm
-                hover:shadow-xl
-                hover:-translate-y-1
-                transition-all
-              "
+                className="flex-shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[18%] bg-white self-stretch"
               >
                 {/* Badge */}
                 {product.badge && (
-                  <Badge className="absolute top-2 left-2 bg-red-600 text-white text-xs">
+                  <span className="self-start text-[10px] font-semibold bg-red-600 text-white px-1.5 py-0.5 mb-1">
                     {product.badge}
-                  </Badge>
+                  </span>
                 )}
 
                 {/* Image */}
-                <div className="p-3">
+                <div className="px-2 pt-2">
                   <AspectRatio ratio={1}>
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
-                      className="object-contain group-hover:scale-110 transition duration-500"
+                      className="object-contain"
                     />
                   </AspectRatio>
                 </div>
 
                 {/* Delivery */}
-                <p className="text-center text-xs text-gray-400 italic">
+                <p className="text-center text-[10px] text-gray-400 mt-1">
                   Delivery 1-2 hours
                 </p>
 
                 {/* Name */}
-                <p className="text-center text-sm font-extrabold px-2 min-h-[44px] line-clamp-2 flex-1">
+                <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-[32px]">
                   {product.name}
                 </p>
 
                 {/* Price */}
-                <div className="flex justify-center items-center gap-1 pb-2">
+                <div className="flex justify-center items-center gap-1 mt-1">
                   {product.originalPrice && (
-                    <span className="text-xs line-through text-gray-400">
+                    <span className="text-[10px] line-through text-gray-400">
                       ৳{product.originalPrice}
                     </span>
                   )}
-                  <span className="text-lg lg:text-xl font-black text-red-600">
+                  <span className="text-sm font-bold text-red-600">
                     ৳{product.price}
                   </span>
                 </div>
 
-                {/* Rating */}
-                <div className={product.rating ? "flex justify-center text-yellow-400 pb-2" : "flex justify-center pb-2 min-h-[24px]"}>
-                  {product.rating ? "★★★★★" : <span className="text-xs text-transparent">★★★★★</span>}
-                </div>
-
-                {/* Cart */}
-                <div className="p-2 pb-4 mt-auto">
+                {/* Add to Cart */}
+                <div className="p-2 mt-auto">
                   {qty === 0 ? (
-                    <Button
+                    <button
                       onClick={() => updateQuantity(product.id, 1)}
-                      className="w-full rounded-full bg-red-600 hover:bg-red-700"
+                      className="w-full rounded-full bg-red-600 text-white text-xs font-semibold py-1.5"
                     >
-                      Add
-                    </Button>
+                      Add to Cart
+                    </button>
                   ) : (
-                    <div className="flex justify-between items-center bg-red-600 text-white rounded-full px-2 h-9">
+                    <div className="flex justify-between items-center bg-red-600 text-white rounded-full px-3 py-1.5">
                       <Minus
+                        size={14}
                         className="cursor-pointer"
                         onClick={() => updateQuantity(product.id, -1)}
                       />
-                      <span className="font-bold">{qty}</span>
+                      <span className="text-xs font-bold">{qty}</span>
                       <Plus
+                        size={14}
                         className="cursor-pointer"
                         onClick={() => updateQuantity(product.id, 1)}
                       />
                     </div>
                   )}
                 </div>
-              </Card>
+              </div>
             );
           })}
         </div>
 
         {/* RIGHT */}
-        <Button
+        <button
           onClick={() => scroll(1)}
-          size="icon"
-          className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-yellow-400 hover:bg-yellow-500 shadow"
+          className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-yellow-400 text-black text-lg flex items-center justify-center"
         >
           ›
-        </Button>
+        </button>
       </div>
     </section>
   );
