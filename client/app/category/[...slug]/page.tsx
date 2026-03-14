@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ChevronRight, Home, SlidersHorizontal, Check } from "lucide-react";
@@ -25,14 +25,13 @@ export default function CategoryPage() {
   const rootCategory = routeSlugs[0] || "Products";
   const title = (routeSlugs[routeSlugs.length - 1] || "").replace(/-/g, " ") || "All Products";
   
-  const [products, setProducts] = useState(MOCK_DB);
   const [sortMethod, setSortMethod] = useState("default");
   
   // Filter states (mocking functionality)
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [expressDelivery, setExpressDelivery] = useState(false);
 
-  useEffect(() => {
+  // Use useMemo for derived state (sorting/filtering) - avoids setState in effect
+  const products = useMemo(() => {
     let sorted = [...MOCK_DB];
     
     // Filter
@@ -50,14 +49,14 @@ export default function CategoryPage() {
       sorted.reverse();
     }
 
-    setProducts(sorted);
+    return sorted;
   }, [sortMethod, rootCategory]);
 
   return (
     <div className="min-h-screen bg-white pb-20">
       {/* Top Breadcrumb */}
       <div className="bg-white border-b border-gray-100 py-3 hidden md:block px-4 lg:px-10">
-        <nav className="max-w-[1400px] mx-auto flex items-center text-[13px] text-[#77797D] font-medium whitespace-nowrap overflow-x-auto scrollbar-hide">
+        <nav className="max-w-350 mx-auto flex items-center text-[13px] text-[#77797D] font-medium whitespace-nowrap overflow-x-auto scrollbar-hide">
           <Link href="/" className="hover:text-[#D11218] flex items-center gap-1 shrink-0">
             <Home className="w-3.5 h-3.5" />
             <span>Home</span>
@@ -76,15 +75,15 @@ export default function CategoryPage() {
         </nav>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-10 pt-6">
+      <div className="max-w-350 mx-auto px-4 lg:px-10 pt-6">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           
           {/* Left Sidebar Filters (Shwapno #F2F2F2 style boxes) */}
-          <div className="hidden lg:block w-[260px] shrink-0">
+          <div className="hidden lg:block w-65 shrink-0">
             <div className="bg-[#F2F2F2] rounded-xl p-5 mb-4 border border-[#e5e5e5]">
                <h3 className="text-sm font-bold text-black mb-4 uppercase tracking-wide">Price</h3>
                <div className="flex flex-col gap-2">
-                 <input type="range" className="w-full accent-[#D11218] cursor-pointer" min="10" max="5000" />
+                 <input title="range" type="range" className="w-full accent-[#D11218] cursor-pointer" min="10" max="5000" />
                  <div className="flex items-center justify-between text-xs font-bold text-[#D11218]">
                     <span>৳ 0</span>
                     <span>৳ 5000</span>
@@ -122,7 +121,7 @@ export default function CategoryPage() {
           <div className="flex-1 min-w-0">
             
             {/* Thematic Banner */}
-            <div className="w-full h-[160px] md:h-[180px] bg-gradient-to-r from-emerald-800 to-green-600 rounded-2xl mb-6 relative overflow-hidden flex items-center px-6 md:px-10 shadow-sm">
+            <div className="w-full h-40 md:h-45 bg-linear-to-r from-emerald-800 to-green-600 rounded-2xl mb-6 relative overflow-hidden flex items-center px-6 md:px-10 shadow-sm">
                <div className="relative z-10 w-full sm:w-2/3">
                  <h1 className="text-3xl md:text-5xl font-black text-white capitalize drop-shadow-md mb-2 title-shadow">
                    {title}
@@ -138,7 +137,7 @@ export default function CategoryPage() {
             </div>
 
             {/* Sorting Pills Bar (Shwapno Implementation) */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sticky top-14 md:top-[128px] z-20 bg-white/95 backdrop-blur-md py-3 shadow-sm md:shadow-none border-b md:border-none border-gray-100 px-2 lg:px-0 rounded-xl md:rounded-none">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sticky top-14 md:top-32 z-20 bg-white/95 backdrop-blur-md py-3 shadow-sm md:shadow-none border-b md:border-none border-gray-100 px-2 lg:px-0 rounded-xl md:rounded-none">
                <div className="flex items-center flex-wrap gap-2 text-[14px] font-bold text-gray-700 w-full sm:w-auto overflow-x-auto scrollbar-hide pb-1 sm:pb-0">
                  <span className="mr-1 md:mr-3 shrink-0 uppercase tracking-wider text-[11px] md:text-[13px] text-gray-500 hidden sm:inline-block">SORT BY :</span>
                  
@@ -187,7 +186,7 @@ export default function CategoryPage() {
                  <div className="col-span-full py-20 flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
                     <SlidersHorizontal className="w-12 h-12 text-gray-300 mb-4" />
                     <h3 className="text-xl font-black text-gray-900">No products found</h3>
-                    <p className="text-gray-500 font-medium mt-2 max-w-sm">We couldn't find any items matching your current filters in this category.</p>
+                    <p className="text-gray-500 font-medium mt-2 max-w-sm">We couldn&apos;t find any items matching your current filters in this category.</p>
                     <Button 
                       onClick={() => setSortMethod("default")}
                       variant="outline"
