@@ -12,16 +12,19 @@ const MobileNav = () => {
 
   const navItems = [
     { label: "Home", icon: Home, href: "/" },
-    { label: "Categories", icon: Search, href: "/categories" },
+    { label: "Browse", icon: Search, href: "/categories" },
     { label: "Cart", icon: ShoppingBag, href: "/cart", badge: 3 },
     { label: "Offers", icon: Gift, href: "/offers" },
     { label: "Account", icon: User, href: "/account" },
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-t pb-safe">
-      <nav className="flex items-center justify-around h-16 px-2">
-        {navItems.map((item) => {
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-border/50 pb-safe shadow-premium">
+      <nav className="flex items-center justify-around h-16 px-2 relative">
+        {/* Background Glow Effect */}
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-primary/30 to-transparent"></div>
+        
+        {navItems.map((item, index) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
 
@@ -30,19 +33,20 @@ const MobileNav = () => {
               <Link
                 key={item.label}
                 href={item.href}
-                className="relative flex flex-col items-center justify-center w-full h-full -mt-6"
+                className="relative flex flex-col items-center justify-center w-full h-full"
               >
                 <div className={cn(
-                  "p-3 rounded-full shadow-lg transition-transform active:scale-95 border-4 border-background",
-                  isActive ? "bg-brand-primary text-white" : "bg-brand-primary text-white"
+                  "relative p-4 rounded-full shadow-premium-lg transition-all duration-300 active:scale-90",
+                  "bg-gradient-to-br from-brand-primary to-orange-500",
+                  "before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:animate-pulse"
                 )}>
-                  <Icon className="h-6 w-6" />
+                  <Icon className="h-6 w-6 text-white" />
+                  {item.badge && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-brand-secondary text-white border-2 border-white animate-bounce-in font-bold">
+                      {item.badge}
+                    </Badge>
+                  )}
                 </div>
-                {item.badge && (
-                  <Badge className="absolute top-0 right-1/2 translate-x-3 h-5 w-5 flex items-center justify-center p-0 text-[10px] bg-brand-secondary border-2 border-background">
-                    {item.badge}
-                  </Badge>
-                )}
                 <span className="text-[10px] font-bold mt-1 text-brand-primary">
                   {item.label}
                 </span>
@@ -55,12 +59,32 @@ const MobileNav = () => {
               key={item.label}
               href={item.href}
               className={cn(
-                "flex flex-col items-center justify-center w-full h-full gap-1 transition-colors",
-                isActive ? "text-brand-primary" : "text-muted-foreground hover:text-brand-primary/70"
+                "flex flex-col items-center justify-center w-full h-full gap-1 transition-all duration-300 relative group",
+                isActive ? "text-brand-primary" : "text-muted-foreground"
               )}
             >
-              <Icon className={cn("h-5 w-5 transition-transform", isActive && "scale-110")} />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              {/* Active Indicator */}
+              <div className={cn(
+                "absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-brand-primary transition-all duration-300",
+                isActive ? "opacity-100 scale-100" : "opacity-0 scale-0"
+              )}></div>
+              
+              <div className={cn(
+                "p-2 rounded-xl transition-all duration-300",
+                isActive ? "bg-brand-primary/10" : "group-hover:bg-muted/50"
+              )}>
+                <Icon className={cn(
+                  "h-5 w-5 transition-transform duration-300",
+                  isActive && "scale-110",
+                  "group-hover:scale-110"
+                )} />
+              </div>
+              <span className={cn(
+                "text-[10px] font-semibold transition-colors duration-300",
+                isActive ? "text-brand-primary" : "group-hover:text-foreground"
+              )}>
+                {item.label}
+              </span>
             </Link>
           );
         })}
