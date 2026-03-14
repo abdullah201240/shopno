@@ -37,51 +37,57 @@ import { cn } from "@/lib/utils";
 const sidebarCategories = [
   { 
     name: "Ramadan", icon: Apple, slug: "ramadan", 
-    subs: ["Dates & Nuts", "Beverages", "Snacks", "Oil & Ghee", "Lentils & Pulses"] 
+    subs: [] 
   },
   { 
     name: "Food", icon: Apple, slug: "food", 
-    subs: ["Rice", "Oil", "Flour", "Spices", "Ready to Cook", "Dairy"] 
+    subs: [
+      "Fruits & Vegetables", "Meat & Fish", "Eggs", "Baking Needs", "Beverages", 
+      "Snacks", "Frozen", "Canned Food", "Ice Cream", "Candy & Chocolate", 
+      "Dairy", "Breakfast", "Sauces & Pickles", "Cooking"
+    ] 
   },
   { 
     name: "Baby Food & Care", icon: Baby, slug: "baby-food-care", 
-    subs: ["Formula", "Baby Cereal", "Diapers", "Baby Wipes", "Baby Bath"] 
+    subs: ["Baby Food", "Baby Wipes", "Baby Bath & Skincare", "Baby Oral Care", "Baby Accessories"] 
   },
   { 
     name: "Diapers", icon: Baby, slug: "diapers", 
-    subs: ["Pant Style", "Tape Style", "Small", "Medium", "Large", "XL"] 
+    subs: ["Baby Diapers"] 
   },
   { 
     name: "Home Cleaning", icon: SprayCan, slug: "home-cleaning", 
-    subs: ["Floor Cleaner", "Dishwash", "Toilet Cleaner", "Laundry", "Air Freshener"] 
+    subs: [
+      "Dish Cleaner", "Laundry", "Air Fresheners", 
+      "Floor Glass & Wood Cleaners", "Toilet Cleaners", "Pest Control", "Trash Supplies"
+    ] 
   },
   { 
     name: "Pet Care", icon: Dog, slug: "pet-care", 
-    subs: ["Cat Food", "Dog Food", "Pet Litter", "Pet Accessories"] 
+    subs: ["Cat Food"] 
   },
   { 
     name: "Beauty & Health", icon: Sparkles, slug: "beauty-health", 
-    subs: ["Oral Care", "Hair Care", "Skin Care", "Personal Hygiene", "Health Care"] 
+    subs: ["Beauty Care", "Health Care"] 
   },
   { 
     name: "Fashion & Lifestyle", icon: SprayCan, slug: "fashion-lifestyle", 
-    subs: ["Men's Wear", "Women's Wear", "Kids Wear", "Accessories"] 
+    subs: ["Kurtis Tunics & Tops", "Skirts & Palazzos", "Lungi"] 
   },
   { 
     name: "Home & Kitchen", icon: Apple, slug: "home-kitchen", 
-    subs: ["Dinnerware", "Cookware", "Kitchen Tools", "Storage"] 
+    subs: [
+      "Home Appliance", "Kitchen Accessories", "Kitchen Essentials", 
+      "Home Accessories", "Lights & Electrical", "Tools & Hardware"
+    ] 
   },
   { 
     name: "Stationeries", icon: SprayCan, slug: "stationeries", 
-    subs: ["Paper & Pens", "Notebooks", "Calculators", "Art Supplies"] 
+    subs: ["Batteries", "Writing & Drawing"] 
   },
   { 
     name: "Toys & Sports", icon: Apple, slug: "toys-sports", 
-    subs: ["Soft Toys", "Board Games", "Outdoor Sports", "Action Figures"] 
-  },
-  { 
-    name: "Gadget", icon: Smartphone, slug: "gadget", 
-    subs: ["Mobile Accessories", "Headphones", "Smart Watches", "Cables"] 
+    subs: ["Sports & Outdoor", "Soft Toys", "Dolls & Plastic Toys", "Learning & Educational Toys"] 
   },
 ];
 
@@ -124,8 +130,8 @@ const HomeHero = () => {
     <section className="py-6 pt-2">
       <div className="flex flex-col lg:flex-row gap-0 lg:gap-4 h-auto md:h-[580px]">
         {/* Left Sidebar - Shwapno Style with Flyout */}
-        <div className="hidden lg:flex flex-col w-64 shrink-0 bg-white border border-border/60 relative group-s-sidebar z-[110]">
-          <div className="bg-white text-black p-3 font-black text-[11px] uppercase flex items-center gap-3 border-b border-border/60">
+        <div className="hidden lg:flex flex-col w-[255px] shrink-0 bg-white border border-border/60 relative group-s-sidebar z-[110]">
+          <div className="bg-white text-[#3c3e44] p-3 font-black text-[11px] uppercase flex items-center gap-3 border-b border-border/60">
             <Menu className="h-4 w-4" />
             <span>SHOP BY CATEGORY</span>
           </div>
@@ -133,36 +139,36 @@ const HomeHero = () => {
             {sidebarCategories.map((cat, i) => (
               <div
                 key={i}
-                className="relative group/item border-b border-gray-50 last:border-0"
+                className="relative group/item"
               >
                 <Link
                   href={`/category/${cat.slug}`}
-                  className="flex items-center justify-between px-4 py-[11px] text-[11px] font-bold text-gray-700 hover:text-[#C82128] hover:bg-gray-50 transition-all"
+                  className="flex items-center justify-between px-3 py-2.5 text-[17px] font-black text-[#222222] hover:text-[#C82128] transition-all"
                 >
                   <div className="flex items-center gap-3">
-                    <cat.icon className="h-4 w-4 text-gray-400 group-hover/item:text-[#C82128]" />
-                    <span className="uppercase tracking-tight">{cat.name}</span>
+                    <cat.icon className="h-4 w-4 text-gray-300 transition-colors" />
+                    <span className="tracking-tight leading-none pt-0.5">{cat.name}</span>
                   </div>
-                  <ChevronRight className="h-3 w-3 text-gray-300 group-hover/item:text-[#C82128]" />
+                  <ChevronRight className="h-4 w-4 text-gray-300 group-hover/item:text-[#C82128]" />
                 </Link>
 
-                {/* Mega Menu Flyout - Fixed Alignment */}
-                <div className="absolute left-full top-[-1px] w-[500px] min-h-[calc(100%+2px)] bg-white border border-border/80 shadow-2xl z-[150] hidden group-hover/item:block p-8">
-                   <h4 className="text-[12px] font-black text-[#C82128] uppercase mb-6 pb-2 border-b border-border/40 tracking-wider">
-                      {cat.name}
-                   </h4>
-                   <div className="grid grid-cols-2 gap-x-12 gap-y-5">
-                      {cat.subs?.map((sub, j) => (
-                        <Link 
-                          key={j} 
-                          href="#" 
-                          className="text-[11px] font-black text-gray-500 hover:text-[#C82128] uppercase transition-colors tracking-tight"
-                        >
-                          {sub}
-                        </Link>
-                      ))}
-                   </div>
-                </div>
+                {/* Mega Menu Flyout - Exact Shwapno Style */}
+                {cat.subs && cat.subs.length > 0 && (
+                  <div className="absolute left-full top-0 w-[410px] bg-white border border-border/80 shadow-2xl z-[150] hidden group-hover/item:block py-2">
+                     <div className="flex flex-col">
+                        {cat.subs.map((sub, j) => (
+                          <Link 
+                            key={j} 
+                            href="#" 
+                            className="px-6 py-[12px] text-[16px] font-black text-[#222222] hover:text-[#C82128] hover:bg-gray-50 transition-all flex items-center justify-between group/sub"
+                          >
+                            <span>{sub}</span>
+                            <ChevronRight className="h-4 w-4 text-gray-200 group-hover/sub:text-[#C82128]" />
+                          </Link>
+                        ))}
+                     </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -197,8 +203,8 @@ const HomeHero = () => {
               </CarouselContent>
               
               <div className="hidden md:block">
-                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-8 w-8 bg-[#FFD35E] text-black border-none rounded-full shadow-lg transition-transform" />
-                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-8 w-8 bg-[#FFD35E] text-black border-none rounded-full shadow-lg transition-transform" />
+                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 bg-[#FFD35E] text-black border-none rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 z-50" />
+                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 bg-[#FFD35E] text-black border-none rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95 z-50" />
               </div>
               
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">

@@ -36,8 +36,8 @@ const Header = () => {
             </Sheet>
 
             <Link href="/" className="flex items-center">
-               <div className="bg-white p-1 rounded">
-                  <span className="text-xl font-black text-[#C82128] tracking-tighter px-1">SHOPNO</span>
+               <div className="bg-white p-1 rounded-full w-24 h-10 flex items-center justify-center shadow-inner">
+                  <span className="text-sm font-black text-[#C82128] tracking-tighter uppercase px-1">SHWAPNO</span>
                </div>
             </Link>
 
@@ -57,7 +57,7 @@ const Header = () => {
               <Button 
                 className="bg-[#FFD35E] hover:bg-[#FFD35E]/90 text-black h-full px-5 rounded-l-none rounded-r-md border-none shadow-none"
               >
-                <Search className="h-5 w-5 stroke-[2.5px]" />
+                <Search className="h-5 w-5 stroke-[2.5px] text-black" />
               </Button>
             </div>
           </div>
