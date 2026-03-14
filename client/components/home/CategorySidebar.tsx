@@ -58,8 +58,8 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({ categories }) => {
   };
 
   return (
-    <div className="hidden lg:flex flex-col w-[260px] shrink-0 bg-white relative z-[998] overflow-visible">
-      <div className="flex flex-col py-2">
+    <div className="hidden lg:flex flex-col w-[200px] shrink-0 bg-white relative  overflow-visible">
+      <div className="flex flex-col ">
         {categories.map((cat, i) => (
           <div
             key={i}
@@ -70,11 +70,11 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({ categories }) => {
             <Link
               href={`/category/${cat.slug}`}
               className={cn(
-                "flex items-center justify-between px-4 py-2.5 text-[15px] font-semibold transition-all duration-200",
+                "flex items-center justify-between py-2.5 text-[15px] font-semibold transition-all duration-200",
                 activeMenu === i ? "text-[#C82128] bg-gray-100" : "text-[#222222] hover:text-[#C82128] hover:bg-gray-100"
               )}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <cat.icon className={cn("h-4 w-4 transition-colors", activeMenu === i ? "text-[#C82128]" : "text-gray-400")} />
                 <span className="tracking-tight leading-none">{cat.name}</span>
               </div>
