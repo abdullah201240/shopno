@@ -12,22 +12,15 @@ import {
   Menu, 
   ChevronRight, 
   Apple, 
-  Carrot, 
-  Beef, 
-  Milk, 
-  IceCream, 
-  Coffee, 
   Baby, 
   SprayCan,
   Truck,
   Shield,
   Clock,
   Award,
-  CreditCard,
   Phone,
   Dog,
-  Sparkles,
-  Smartphone
+  Sparkles
 } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
