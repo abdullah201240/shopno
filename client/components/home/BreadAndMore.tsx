@@ -94,8 +94,7 @@ const BreadAndMore: React.FC = () => {
         {/* ROW */}
         <div
           ref={rowRef}
-          className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide"
-          style={{ scrollBehavior: "smooth" }}
+          className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide scroll-smooth"
         >
           {breadProducts.map((product) => {
             const qty = quantities[product.id] || 0;
@@ -103,7 +102,7 @@ const BreadAndMore: React.FC = () => {
             return (
               <div
                 key={product.id}
-                className="flex-shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[18%] bg-white self-stretch"
+                className="shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[20%] bg-white self-stretch"
               >
                 {/* Badge */}
                 {product.badge && (
@@ -130,7 +129,7 @@ const BreadAndMore: React.FC = () => {
                 </p>
 
                 {/* Name */}
-                <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-[32px]">
+                <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-8">
                   {product.name}
                 </p>
 

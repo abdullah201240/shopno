@@ -118,7 +118,7 @@ const BestDeals: React.FC = () => {
             return (
               <div
                 key={product.id}
-                className="shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[18%] bg-white self-stretch"
+                className="shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[20%] bg-white self-stretch"
               >
                 {/* Badge */}
                 {product.badge && (
