@@ -136,7 +136,7 @@ const Header = () => {
     setExpandedSubCategory(expandedSubCategory === index ? null : index);
   };
   return (
-    <header className="sticky top-0 z-50 w-full shadow-sm">
+    <header className="sticky top-0 z-50 w-full flex-none shadow-sm bg-white">
       {/* Tier 1: Red Background Header */}
       <div className="bg-[#C82128] text-white py-2 px-1 lg:px-4">
         <div className="w-full flex items-center justify-between gap-1 lg:gap-4 h-11 lg:h-12 px-0 lg:px-6">
