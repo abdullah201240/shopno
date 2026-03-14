@@ -12,6 +12,8 @@ import CategorySidebar from "./CategorySidebar";
 import HeroSlider from "./HeroSlider";
 import PromoCategorySlider from "./PromoCategorySlider";
 import TrustBadges from "./TrustBadges";
+import RecommendedForYou from "./RecommendedForYou";
+import HotAndTrending from "./HotAndTrending";
 
 const sidebarCategories = [
   { 
@@ -153,6 +155,12 @@ const HomeHero = () => {
 
       {/* Trust Badges */}
       <TrustBadges />
+
+      {/* Recommended for You */}
+      <RecommendedForYou />
+
+      {/* Hot & Trending */}
+      <HotAndTrending />
     </section>
   );
 };

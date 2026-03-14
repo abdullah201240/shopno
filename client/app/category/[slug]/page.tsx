@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import MainLayout from "@/components/layout/MainLayout";
 import CategorySidebar from "@/components/layout/CategorySidebar";
 import ProductCard from "@/components/ui/custom/ProductCard";
 import { 
@@ -14,7 +13,7 @@ import {
   BreadcrumbSeparator 
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Filter, ChevronDown, Sparkles, SlidersHorizontal } from "lucide-react";
+import { Sparkles, SlidersHorizontal, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,79 +38,77 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   const resolvedParams = React.use(params);
   
   return (
-    <MainLayout>
-      <div className="container mx-auto px-4 lg:px-6">
-        <div className="flex gap-8 py-8">
-          {/* Desktop Sidebar */}
-          <CategorySidebar />
+    <div className="container mx-auto px-4 lg:px-6">
+      <div className="flex gap-8 py-8">
+        {/* Desktop Sidebar */}
+        <CategorySidebar />
 
-          {/* Main Content */}
-          <div className="flex-1">
-            {/* Breadcrumbs */}
-            <div className="mb-8">
-              <Breadcrumb className="mb-4">
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink render={<Link href="/" />}>Home</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="uppercase font-semibold">Fruits & Vegetables</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-              
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-brand-primary to-orange-500 flex items-center justify-center text-white shadow-md">
-                    <Sparkles className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase">Fruits & Vegetables</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Found <span className="text-brand-primary font-bold">128</span> products</p>
-                  </div>
+        {/* Main Content */}
+        <div className="flex-1">
+          {/* Breadcrumbs */}
+          <div className="mb-8">
+            <Breadcrumb className="mb-4">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink render={<Link href="/" />}>Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="uppercase font-semibold">Fruits & Vegetables</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-brand-primary to-orange-500 flex items-center justify-center text-white shadow-md">
+                  <Sparkles className="h-6 w-6" />
                 </div>
-                
-                {/* Filters Row */}
-                <div className="flex items-center gap-3">
-                  <Button variant="outline" className="lg:hidden rounded-xl bg-background border-border shadow-sm font-semibold gap-2 hover:bg-muted transition-all duration-300">
-                    <SlidersHorizontal className="h-4 w-4" /> Filter
-                  </Button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger render={<Button variant="outline" className="rounded-xl bg-background border-border shadow-sm font-semibold gap-2 hover:bg-muted transition-all duration-300" />}>
-                      Sort by: Default <ChevronDown className="h-4 w-4" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48 p-2 rounded-2xl shadow-premium-lg border border-border/50">
-                      <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Price: Low to High</DropdownMenuItem>
-                      <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Price: High to Low</DropdownMenuItem>
-                      <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Newest First</DropdownMenuItem>
-                      <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Discount: High to Low</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase">Fruits & Vegetables</h1>
+                  <p className="text-muted-foreground font-medium mt-1">Found <span className="text-brand-primary font-bold">128</span> products</p>
                 </div>
               </div>
+              
+              {/* Filters Row */}
+              <div className="flex items-center gap-3">
+                <Button variant="outline" className="lg:hidden rounded-xl bg-background border-border shadow-sm font-semibold gap-2 hover:bg-muted transition-all duration-300">
+                  <SlidersHorizontal className="h-4 w-4" /> Filter
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger render={<Button variant="outline" className="rounded-xl bg-background border-border shadow-sm font-semibold gap-2 hover:bg-muted transition-all duration-300" />}>
+                    Sort by: Default <ChevronDown className="h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48 p-2 rounded-2xl shadow-premium-lg border border-border/50">
+                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Price: Low to High</DropdownMenuItem>
+                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Price: High to Low</DropdownMenuItem>
+                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Newest First</DropdownMenuItem>
+                    <DropdownMenuItem className="rounded-xl px-3 py-2.5 cursor-pointer hover:bg-brand-primary/10 focus:bg-brand-primary/10">Discount: High to Low</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
+          </div>
 
-            {/* Product Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pt-4">
-              {MOCK_CATEGORY_PRODUCTS.map((product) => (
-                <ProductCard key={product.id} {...product} />
-              ))}
-              {/* Duplicate for visual grid richness */}
-              {MOCK_CATEGORY_PRODUCTS.map((product) => (
-                <ProductCard key={product.id + "-copy"} {...product} />
-              ))}
-            </div>
+          {/* Product Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pt-4">
+            {MOCK_CATEGORY_PRODUCTS.map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+            {/* Duplicate for visual grid richness */}
+            {MOCK_CATEGORY_PRODUCTS.map((product) => (
+              <ProductCard key={product.id + "-copy"} {...product} />
+            ))}
+          </div>
 
-            {/* Pagination / Load More */}
-            <div className="mt-16 flex justify-center py-10">
-              <Button className="bg-gradient-to-r from-brand-primary to-orange-500 text-white font-bold px-12 h-14 rounded-2xl shadow-premium-lg hover:shadow-glow-primary hover:scale-105 active:scale-95 transition-all duration-300">
-                Load More Products
-              </Button>
-            </div>
+          {/* Pagination / Load More */}
+          <div className="mt-16 flex justify-center py-10">
+            <Button className="bg-gradient-to-r from-brand-primary to-orange-500 text-white font-bold px-12 h-14 rounded-2xl shadow-premium-lg hover:shadow-glow-primary hover:scale-105 active:scale-95 transition-all duration-300">
+              Load More Products
+            </Button>
           </div>
         </div>
       </div>
-    </MainLayout>
+    </div>
   );
 }
