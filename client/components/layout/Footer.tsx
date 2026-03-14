@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Twitter, Instagram, Youtube, Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
@@ -11,7 +12,13 @@ const Footer = () => {
           {/* Brand Info */}
           <div>
             <Link href="/" className="inline-block mb-4">
-              <span className="text-3xl font-bold text-[#C82128]">SHOPNO</span>
+              <Image
+                src="/shwapno_logo.png"
+                alt="Shopno"
+                width={120}
+                height={40}
+                className="h-auto w-auto"
+              />
             </Link>
             <p className="text-gray-500 text-sm mb-4">
               Your trusted online grocery store in Bangladesh. Fresh groceries delivered to your doorstep.
