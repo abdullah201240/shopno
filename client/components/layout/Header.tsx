@@ -17,7 +17,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full shadow-sm">
+    <header className="sticky top-0 z-50 w-full">
       {/* Tier 1: Red Background Header */}
       <div className="bg-[#C82128] text-white py-2 px-4 lg:px-6">
         <div className="container mx-auto flex items-center justify-between gap-4 h-12">
@@ -36,7 +36,7 @@ const Header = () => {
             </Sheet>
 
             <Link href="/" className="flex items-center">
-               <div className="bg-white p-1 rounded-full w-24 h-10 flex items-center justify-center shadow-inner">
+               <div className="bg-white p-1 rounded-full w-24 h-10 flex items-center justify-center">
                   <span className="text-sm font-black text-[#C82128] tracking-tighter uppercase px-1">SHWAPNO</span>
                </div>
             </Link>
@@ -79,11 +79,11 @@ const Header = () => {
       </div>
 
       {/* Tier 2: White Background Sub-Header */}
-      <div className="bg-white border-b hidden md:block">
+      <div className="bg-white hidden md:block">
         <div className="container mx-auto px-4 lg:px-6">
           <div className="flex h-10 items-center justify-between">
             <nav className="flex items-center h-full">
-               <div className="flex items-center gap-2 font-black text-[11px] uppercase tracking-wider text-[#3c3e44] cursor-pointer hover:text-[#1593CE] w-[255px] border-r h-full pr-4">
+               <div className="flex items-center gap-2 font-black text-[11px] uppercase tracking-wider text-[#3c3e44] cursor-pointer hover:text-[#1593CE] w-[255px] h-full pr-4">
                   <Menu className="h-4 w-4" />
                   SHOP BY CATEGORY
                </div>

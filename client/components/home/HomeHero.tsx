@@ -107,12 +107,7 @@ const banners = [
   }
 ];
 
-const trustBadges = [
-  { label: "Free 1h Delivery", icon: Truck, desc: "For orders over ৳500", color: "from-green-500 to-emerald-500" },
-  { label: "Fresh Guarantee", icon: Award, desc: "100% Organic Products", color: "from-brand-primary to-orange-500" },
-  { label: "Secure Payment", icon: Shield, desc: "Multiple methods", color: "from-blue-500 to-indigo-500" },
-  { label: "Happy Customer", icon: Clock, desc: "1M+ Happy clients", color: "from-purple-500 to-pink-500" },
-];
+
 
 const HomeHero = () => {
   const plugin = React.useRef(
@@ -123,11 +118,8 @@ const HomeHero = () => {
     <section className="py-6 pt-2">
       <div className="flex flex-col lg:flex-row gap-0 lg:gap-4 h-auto md:h-[580px]">
         {/* Left Sidebar - Shwapno Style with Flyout */}
-        <div className="hidden lg:flex flex-col w-[255px] shrink-0 bg-white border border-border/60 relative group-s-sidebar z-[110]">
-          <div className="bg-white text-[#3c3e44] p-3 font-black text-[11px] uppercase flex items-center gap-3 border-b border-border/60">
-            <Menu className="h-4 w-4" />
-            <span>SHOP BY CATEGORY</span>
-          </div>
+        <div className="hidden lg:flex flex-col w-[255px] shrink-0 bg-white relative group-s-sidebar z-[110]">
+          
           <div className="flex flex-col py-0 flex-1">
             {sidebarCategories.map((cat, i) => (
               <div
@@ -147,7 +139,7 @@ const HomeHero = () => {
 
                 {/* Mega Menu Flyout - Exact Shwapno Style */}
                 {cat.subs && cat.subs.length > 0 && (
-                  <div className="absolute left-full top-0 w-[410px] bg-white border border-border/80 shadow-2xl z-[150] hidden group-hover/item:block py-2">
+                  <div className="absolute left-full top-0 w-[410px] bg-white z-[150] hidden group-hover/item:block py-2">
                      <div className="flex flex-col">
                         {cat.subs.map((sub, j) => (
                           <Link 
@@ -170,7 +162,7 @@ const HomeHero = () => {
         {/* Right Content Area (Slider + Promo Row) */}
         <div className="flex-1 flex flex-col gap-4">
           {/* Slider Section */}
-          <div className="relative overflow-hidden lg:rounded-2xl rounded-2xl shadow-sm border border-border/50 flex-1 h-[450px]">
+          <div className="relative overflow-hidden lg:rounded-2xl rounded-2xl flex-1 h-[450px]">
             <Carousel
               plugins={[plugin.current]}
               className="w-full h-full h-[450px]"
@@ -215,7 +207,7 @@ const HomeHero = () => {
           <div className="grid grid-cols-5 gap-3 h-[120px]">
             {promoCategories.map((cat, i) => (
               <Link key={i} href="#" className="group flex flex-col items-center relative h-full">
-                 <div className="relative w-full aspect-[1.6] rounded-xl overflow-hidden border border-border/40 shadow-sm bg-white">
+                 <div className="relative w-full aspect-[1.6] rounded-xl overflow-hidden bg-white">
                     <Image 
                       src={cat.image} 
                       alt={cat.name} 
@@ -242,7 +234,7 @@ const HomeHero = () => {
         ].map((badge, i) => (
           <div 
             key={i} 
-            className="flex items-center gap-4 p-4 rounded-xl bg-white border border-border/50 hover:shadow-md transition-all duration-300"
+            className="flex items-center gap-4 p-4 rounded-xl bg-white hover:shadow-md transition-all duration-300"
           >
             <div className="h-10 w-10 rounded-full border border-[#C82128] flex items-center justify-center text-[#C82128]">
               <badge.icon className="h-5 w-5" />

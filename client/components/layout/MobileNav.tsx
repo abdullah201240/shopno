@@ -19,7 +19,7 @@ const MobileNav = () => {
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-border/50 pb-safe shadow-premium">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl pb-safe">
       <nav className="flex items-center justify-around h-16 px-2 relative">
         {/* Background Glow Effect */}
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-primary/30 to-transparent"></div>
@@ -36,7 +36,7 @@ const MobileNav = () => {
                 className="relative flex flex-col items-center justify-center w-full h-full"
               >
                 <div className={cn(
-                  "relative p-3 rounded-full shadow-lg transition-all duration-300 active:scale-90",
+                  "relative p-3 rounded-full transition-all duration-300 active:scale-90",
                   "bg-[#C82128]",
                   "before:absolute before:inset-0 before:rounded-full before:bg-white/10"
                 )}>
