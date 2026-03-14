@@ -166,7 +166,7 @@ function useCountdown(initialHours = 1, initialMinutes = 35, initialSeconds = 1)
 
 function SpecialSavingsBanner() {
   return (
-    <div className="hidden md:block w-[18rem] shrink-0 relative rounded-lg overflow-hidden min-h-[200px]">
+    <div className="hidden md:block w-[18rem] shrink-0 relative rounded-lg overflow-hidden min-h-50">
       <Image
         src="/6746bb7e042626c43a0ab923_SPECIAL SAVINGS-01 (1).webp"
         alt="Special Savings"
@@ -278,10 +278,7 @@ export default function WeekendDeals() {
             gap-2.5 = 10px. On mobile: (100% - 3*10px) / 2 per card won't work with
             fixed widths, so we use a CSS custom property approach via inline style.
           */}
-          <div
-            className="flex gap-2.5"
-            style={{ width: "max-content" }}
-          >
+          <div className="flex gap-2.5 w-max">
             {products.map((product) => (
               <div
                 key={product.id}
@@ -289,8 +286,9 @@ export default function WeekendDeals() {
                   w-[calc((100vw-6rem)/2)]
                   md:w-[calc((100vw-6rem-18rem-1.5rem)/4)]
                   shrink-0
+                  max-w-50
+                  min-w-32.5
                 "
-                style={{ maxWidth: "200px", minWidth: "130px" }}
               >
                 <CustomProductCard
                   id={String(product.id)}
