@@ -139,7 +139,7 @@ export default function CategoryPage() {
           <div className="flex-1 min-w-0">
             
             {/* Thematic Banner */}
-            <div className="w-full h-40 md:h-45 rounded-2xl mb-6 relative overflow-hidden flex items-center px-6 md:px-10 shadow-sm">
+            <div className="w-full h-32 sm:h-40 md:h-45 rounded-2xl mb-6 relative overflow-hidden shadow-sm">
                {/* Category Image Background */}
                {CATEGORY_BANNERS[rootCategory] ? (
                  <Image 
@@ -152,47 +152,63 @@ export default function CategoryPage() {
                ) : (
                  <div className="absolute inset-0 bg-linear-to-r from-emerald-800 to-green-600"></div>
                )}
-               
-               {/* Overlay for text readability */}
-               <div className="absolute inset-0 bg-black/30"></div>
-               
-               <div className="relative z-10 w-full sm:w-2/3">
-                 <h1 className="text-3xl md:text-5xl font-black text-white capitalize drop-shadow-md mb-2 title-shadow">
-                   {title}
-                 </h1>
-                 <p className="text-white/90 font-medium text-sm md:text-base hidden sm:block max-w-[80%]">
-                   Hand-picked, premium quality {title.toLowerCase()} items delivered swiftly and securely directly to your doorstep.
-                 </p>
-               </div>
-               
-               {/* Decorative background curve */}
-               <div className="absolute right-0 top-0 bottom-0 w-[60%] bg-white/10 rounded-l-full blur-2xl transform translate-x-1/3"></div>
             </div>
 
             {/* Sorting Pills Bar (Shwapno Implementation) */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sticky top-14 md:top-32 z-20 bg-white/95 backdrop-blur-md py-3 shadow-sm md:shadow-none border-b md:border-none border-gray-100 px-2 lg:px-0 rounded-xl md:rounded-none">
                <div className="flex items-center flex-wrap gap-2 text-[14px] font-bold text-gray-700 w-full sm:w-auto overflow-x-auto scrollbar-hide pb-1 sm:pb-0">
-                 <span className="mr-1 md:mr-3 shrink-0 uppercase tracking-wider text-[11px] md:text-[13px] text-gray-500 hidden sm:inline-block">SORT BY :</span>
+                 <span className="mr-3 shrink-0 uppercase tracking-wider text-[11px] md:text-[13px] text-gray-500 font-bold">SORT BY :</span>
                  
-                 {[
-                   { label: 'Default', value: 'default' },
-                   { label: 'Best sale', value: 'best-sale' },
-                   { label: 'Price asc', value: 'price-asc' },
-                   { label: 'Price desc', value: 'price-desc' },
-                   { label: 'Newest', value: 'newest' }
-                 ].map((pill) => (
-                   <button 
-                     key={pill.value}
-                     onClick={() => setSortMethod(pill.value)}
-                     className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all border text-[12px] md:text-[13px] whitespace-nowrap font-black tracking-tight ${
-                       sortMethod === pill.value 
-                         ? 'bg-[#FFD200] border-[#FFD200] text-black shadow-sm' 
-                         : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
-                     }`}
-                   >
-                     {pill.label}
-                   </button>
-                 ))}
+                 <button 
+                   onClick={() => setSortMethod('default')}
+                   className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all border text-[12px] md:text-[13px] whitespace-nowrap font-black tracking-tight ${
+                     sortMethod === 'default' 
+                       ? 'bg-[#FFD200] border-[#FFD200] text-black shadow-sm' 
+                       : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                   }`}
+                 >
+                   Default
+                 </button>
+                 <button 
+                   onClick={() => setSortMethod('best-sale')}
+                   className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all border text-[12px] md:text-[13px] whitespace-nowrap font-black tracking-tight ${
+                     sortMethod === 'best-sale' 
+                       ? 'bg-[#FFD200] border-[#FFD200] text-black shadow-sm' 
+                       : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                   }`}
+                 >
+                   Best sale
+                 </button>
+                 <button 
+                   onClick={() => setSortMethod('price-asc')}
+                   className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all border text-[12px] md:text-[13px] whitespace-nowrap font-black tracking-tight ${
+                     sortMethod === 'price-asc' 
+                       ? 'bg-[#FFD200] border-[#FFD200] text-black shadow-sm' 
+                       : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                   }`}
+                 >
+                   Price asc
+                 </button>
+                 <button 
+                   onClick={() => setSortMethod('price-desc')}
+                   className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all border text-[12px] md:text-[13px] whitespace-nowrap font-black tracking-tight ${
+                     sortMethod === 'price-desc' 
+                       ? 'bg-[#FFD200] border-[#FFD200] text-black shadow-sm' 
+                       : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                   }`}
+                 >
+                   Price desc
+                 </button>
+                 <button 
+                   onClick={() => setSortMethod('newest')}
+                   className={`px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all border text-[12px] md:text-[13px] whitespace-nowrap font-black tracking-tight ${
+                     sortMethod === 'newest' 
+                       ? 'bg-[#FFD200] border-[#FFD200] text-black shadow-sm' 
+                       : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                   }`}
+                 >
+                   Newest
+                 </button>
                </div>
                
                <p className="text-[13px] text-gray-500 font-bold whitespace-nowrap shrink-0 hidden md:block">
