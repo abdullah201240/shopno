@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { ChevronRight, Plus, ShoppingBag } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import CustomProductCard from "@/components/ui/custom/ProductCard";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -111,89 +108,21 @@ function useCountdown(initialHours = 1, initialMinutes = 35, initialSeconds = 1)
   return time;
 }
 
-// ─── CountdownBlock ────────────────────────────────────────────────────────────
 
-function CountdownBlock({ value, label }: { value: number; label: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center bg-red-600 text-white rounded px-1.5 py-0.5 min-w-7">
-      <span className="text-xs font-bold leading-none">
-        {String(value).padStart(2, "0")}
-      </span>
-      <span className="text-[6px] uppercase tracking-wide leading-none mt-0.5">
-        {label}
-      </span>
-    </div>
-  );
-}
 
-// ─── ProductCard ───────────────────────────────────────────────────────────────
 
-function ProductCard({ product }: { product: Product }) {
-  return (
-    <Card className="relative flex flex-col items-center bg-white rounded-none shadow-none min-w-43.75 max-w-43.75 p-3 gap-1 shrink-0">
-      {/* OFF Badge */}
-      <div className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold rounded px-1.5 py-0.5 leading-tight text-center">
-        ৳{product.discount}
-        <br />
-        <span className="font-normal text-[9px]">OFF</span>
-      </div>
-
-      {/* Product Image */}
-      <div className="w-27.5 h-27.5 relative mt-1">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-contain"
-          // Fallback placeholder style if image missing
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = "none";
-          }}
-        />
-        {/* Fallback colored placeholder */}
-        <div className="absolute inset-0 flex items-center justify-center bg-blue-100 rounded-md text-blue-400 text-xs font-semibold text-center p-2 -z-10">
-          <ShoppingBag className="w-10 h-10 opacity-30" />
-        </div>
-      </div>
-
-      {/* Delivery */}
-      <p className="text-[11px] text-gray-400 italic mt-1">Delivery 1-2 hours</p>
-
-      {/* Product Name */}
-      <p className="text-[12.5px] font-bold text-gray-900 text-center leading-tight min-h-9">
-        {product.name}
-      </p>
-
-      {/* Price */}
-      <div className="flex items-center gap-1.5 mt-1">
-        <span className="text-[12px] text-gray-400 line-through">৳{product.oldPrice.toLocaleString()}</span>
-        <span className="text-[15px] font-extrabold text-red-600">৳{product.newPrice.toLocaleString()}</span>
-        <span className="text-[11px] text-gray-500">{product.unit}</span>
-      </div>
-
-      {/* Add to Bag Button */}
-      <Button
-        className="mt-2 w-full bg-red-600 hover:bg-red-700 text-white font-bold text-[13px] rounded-md h-9 gap-1"
-        size="sm"
-      >
-        <Plus className="w-4 h-4 font-black" strokeWidth={3} />
-        Add to Bag
-      </Button>
-    </Card>
-  );
-}
 
 // ─── SpecialSavingsBanner ──────────────────────────────────────────────────────
 
 function SpecialSavingsBanner() {
   return (
-    <div className="w-64 shrink-0 relative overflow-hidden">
+    <div className="w-full relative overflow-hidden rounded-r-lg">
       <Image
         src="/6746bb7e042626c43a0ab923_SPECIAL SAVINGS-01 (1).webp"
         alt="Special Savings"
         fill
         className="object-cover"
-        sizes="256px"
+        sizes="(max-width: 1280px) 30vw, 400px"
         unoptimized
       />
     </div>
@@ -205,70 +134,86 @@ function SpecialSavingsBanner() {
 export default function WeekendDeals() {
   const { hours, minutes, seconds } = useCountdown(1, 35, 1);
   const [activeCategory, setActiveCategory] = useState(1);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
 
+  const scrollCategoryLeft = () => {
+    if (categoryScrollRef.current) {
+      categoryScrollRef.current.scrollBy({ left: -150, behavior: 'smooth' });
+    }
+  };
   return (
-    <div className="grid grid-cols-[1fr_16rem] rounded-none overflow-hidden shadow-none max-w-315 w-full gap-2">
+    <div className="grid grid-cols-[1.5fr_18rem] rounded-lg overflow-hidden shadow-sm max-w-315 w-full gap-6 border border-gray-200">
 
       {/* ── LEFT: Main Deals Section ── */}
       <div className="flex-1 bg-[#C1C9D5] p-2">
 
-        {/* Header Row */}
-        <div className="flex items-center gap-2 mb-3 flex-nowrap">
-          <h2 className="text-[18px] font-black text-gray-900 tracking-tight whitespace-nowrap">
-            WEEKEND DEALS!!!
-          </h2>
+        {/* Compact Header Row: Title, Countdown, and Categories in one row */}
+        <div className="flex items-center gap-4 mb-4 flex-nowrap">
+          <div className="flex items-center gap-3 shrink-0">
+            <h2 className="text-[17px] font-black text-gray-900 tracking-tight whitespace-nowrap">
+              WEEKEND DEALS!!!
+            </h2>
 
-          {/* Countdown */}
-          <div className="flex items-center gap-0.5">
-            <CountdownBlock value={hours} label="HOURS" />
-            <span className="text-red-600 font-black text-sm">:</span>
-            <CountdownBlock value={minutes} label="MIN" />
-            <span className="text-red-600 font-black text-sm">:</span>
-            <CountdownBlock value={seconds} label="SEC" />
+            {/* Compact Countdown */}
+            <div className="flex items-center gap-1.5 bg-red-600 text-white px-2 py-1 rounded text-[13px] font-black shadow-sm">
+              <span className="tabular-nums">{String(hours).padStart(2, "0")}:{String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}</span>
+              <span className="text-[9px] font-bold opacity-90 uppercase tracking-tighter">Left</span>
+            </div>
           </div>
 
-          <Badge className="bg-red-600 hover:bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shrink-0">
-            Left
-          </Badge>
+          {/* Vertical Divider */}
+          <div className="w-px h-6 bg-gray-300 shrink-0" />
+
+          {/* Category Tabs - Compact & Scrollable */}
+          <div className="flex items-center gap-2 flex-1 min-w-0 max-w-[320px]">
+            <button 
+              title="Scroll left"
+              className="w-6 h-6 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gray-400 hover:bg-gray-50 transition-colors shrink-0"
+              onClick={scrollCategoryLeft}
+            >
+              <ChevronRight className="w-3 h-3 rotate-180" />
+            </button>
+            
+            <div ref={categoryScrollRef} className="flex-1 overflow-x-auto scrollbar-hide">
+              <div className="flex items-center gap-1.5 py-0.5">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={cn(
+                      "px-3 py-1 rounded-full border text-[11px] font-bold whitespace-nowrap transition-all",
+                      activeCategory === cat.id
+                        ? "bg-yellow-400 border-yellow-400 text-gray-900 shadow-sm"
+                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
+                    )}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <button title="Next" className="w-8 h-8 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gray-400 hover:bg-gray-50 transition-colors shadow-sm shrink-0">
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
-        {/* Category Tabs */}
-        <ScrollArea className="w-full whitespace-nowrap mb-4">
-          <div className="flex items-center gap-2 pb-1">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={cn(
-                  "px-4 py-1.5 rounded-full border text-[12.5px] font-medium whitespace-nowrap transition-all",
-                  activeCategory === cat.id
-                    ? "bg-yellow-400 border-yellow-400 text-gray-900 font-bold"
-                    : "bg-white border-gray-300 text-gray-600 hover:border-gray-400"
-                )}
-              >
-                {cat.label}
-              </button>
-            ))}
-            <button title="Next" className="w-7 h-7 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gray-400 shrink-0">
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
-        </ScrollArea>
-
-        {/* Product Cards */}
-        <ScrollArea className="w-full">
-          <div className="flex gap-2.5 pb-2 relative">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-            {/* Next arrow */}
-            <button title="Next" className="absolute -right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-red-600 z-10">
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
-        </ScrollArea>
+        {/* Product Cards - Grid with 4 columns to fill full width */}
+        <div className="grid grid-cols-4 gap-2.5 pb-2">
+          {products.slice(0, 4).map((product) => (
+            <CustomProductCard 
+              key={product.id} 
+              id={String(product.id)}
+              name={product.name}
+              image={product.image}
+              price={product.newPrice}
+              originalPrice={product.oldPrice}
+              unit={product.unit}
+              discount={`৳${product.discount} OFF`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* ── RIGHT: Special Savings Banner ── */}

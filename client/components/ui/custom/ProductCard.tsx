@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Plus, Minus, ShoppingBag, Heart, Clock } from "lucide-react";
+import { Plus, Minus, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,19 +29,12 @@ const ProductCard = ({
   deliveryTime = "1-2 hrs" 
 }: ProductCardProps) => {
   const [quantity, setQuantity] = React.useState(0);
-  const [isWishlisted, setIsWishlisted] = React.useState(false);
 
   return (
-    <Card className="group relative overflow-hidden border border-border/60 shadow-none hover:shadow-lg transition-all duration-300 bg-white rounded-xl">
-      {/* Wishlist Button */}
-      <button 
-        onClick={() => setIsWishlisted(!isWishlisted)}
-        className="absolute top-2 right-2 z-20 h-7 w-7 rounded-full bg-white/90 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-      >
-        <Heart className={`h-3.5 w-3.5 ${isWishlisted ? 'fill-[#C82128] text-[#C82128]' : 'text-gray-400'}`} />
-      </button>
+    <Card className="group relative overflow-hidden border-none shadow-none rounded-none">
+      
 
-      <CardContent className="p-2">
+      <CardContent>
         {/* Image Section */}
         <div className="relative mb-2 px-2 pt-2">
           <AspectRatio ratio={1 / 1} className="overflow-hidden">
