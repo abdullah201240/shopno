@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ChevronRight, Plus, ShoppingBag } from "lucide-react";
 import Image from "next/image";
@@ -115,11 +115,11 @@ function useCountdown(initialHours = 1, initialMinutes = 35, initialSeconds = 1)
 
 function CountdownBlock({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex flex-col items-center justify-center bg-red-600 text-white rounded px-2 py-0.5 min-w-[36px]">
-      <span className="text-sm font-bold leading-none">
+    <div className="flex flex-col items-center justify-center bg-red-600 text-white rounded px-1.5 py-0.5 min-w-7">
+      <span className="text-xs font-bold leading-none">
         {String(value).padStart(2, "0")}
       </span>
-      <span className="text-[8px] uppercase tracking-wide leading-none mt-0.5">
+      <span className="text-[6px] uppercase tracking-wide leading-none mt-0.5">
         {label}
       </span>
     </div>
@@ -130,7 +130,7 @@ function CountdownBlock({ value, label }: { value: number; label: string }) {
 
 function ProductCard({ product }: { product: Product }) {
   return (
-    <Card className="relative flex flex-col items-center bg-white rounded-lg shadow-sm min-w-[175px] max-w-[175px] p-3 gap-1 flex-shrink-0">
+    <Card className="relative flex flex-col items-center bg-white rounded-none shadow-none min-w-43.75 max-w-43.75 p-3 gap-1 shrink-0">
       {/* OFF Badge */}
       <div className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold rounded px-1.5 py-0.5 leading-tight text-center">
         ৳{product.discount}
@@ -139,7 +139,7 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* Product Image */}
-      <div className="w-[110px] h-[110px] relative mt-1">
+      <div className="w-27.5 h-27.5 relative mt-1">
         <Image
           src={product.image}
           alt={product.name}
@@ -160,7 +160,7 @@ function ProductCard({ product }: { product: Product }) {
       <p className="text-[11px] text-gray-400 italic mt-1">Delivery 1-2 hours</p>
 
       {/* Product Name */}
-      <p className="text-[12.5px] font-bold text-gray-900 text-center leading-tight min-h-[36px]">
+      <p className="text-[12.5px] font-bold text-gray-900 text-center leading-tight min-h-9">
         {product.name}
       </p>
 
@@ -187,12 +187,14 @@ function ProductCard({ product }: { product: Product }) {
 
 function SpecialSavingsBanner() {
   return (
-    <div className="relative w-[210px] flex-shrink-0 overflow-hidden flex flex-col items-center justify-center">
+    <div className="w-64 shrink-0 relative overflow-hidden">
       <Image
         src="/6746bb7e042626c43a0ab923_SPECIAL SAVINGS-01 (1).webp"
         alt="Special Savings"
         fill
         className="object-cover"
+        sizes="256px"
+        unoptimized
       />
     </div>
   );
@@ -205,27 +207,27 @@ export default function WeekendDeals() {
   const [activeCategory, setActiveCategory] = useState(1);
 
   return (
-    <div className="flex rounded-xl overflow-hidden shadow-md bg-gray-200 max-w-[1260px] w-full">
+    <div className="grid grid-cols-[1fr_16rem] rounded-none overflow-hidden shadow-none max-w-315 w-full gap-2">
 
       {/* ── LEFT: Main Deals Section ── */}
-      <div className="flex-1 bg-[#efefef] p-4">
+      <div className="flex-1 bg-[#C1C9D5] p-2">
 
         {/* Header Row */}
-        <div className="flex items-center gap-3 mb-3 flex-wrap">
-          <h2 className="text-[22px] font-black text-gray-900 tracking-tight whitespace-nowrap">
+        <div className="flex items-center gap-2 mb-3 flex-nowrap">
+          <h2 className="text-[18px] font-black text-gray-900 tracking-tight whitespace-nowrap">
             WEEKEND DEALS!!!
           </h2>
 
           {/* Countdown */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             <CountdownBlock value={hours} label="HOURS" />
-            <span className="text-red-600 font-black text-lg">:</span>
-            <CountdownBlock value={minutes} label="MINUTES" />
-            <span className="text-red-600 font-black text-lg">:</span>
-            <CountdownBlock value={seconds} label="SECONDS" />
+            <span className="text-red-600 font-black text-sm">:</span>
+            <CountdownBlock value={minutes} label="MIN" />
+            <span className="text-red-600 font-black text-sm">:</span>
+            <CountdownBlock value={seconds} label="SEC" />
           </div>
 
-          <Badge className="bg-red-600 hover:bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded">
+          <Badge className="bg-red-600 hover:bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shrink-0">
             Left
           </Badge>
         </div>
@@ -247,7 +249,7 @@ export default function WeekendDeals() {
                 {cat.label}
               </button>
             ))}
-            <button className="w-7 h-7 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gray-400 flex-shrink-0">
+            <button title="Next" className="w-7 h-7 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gray-400 shrink-0">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -257,11 +259,11 @@ export default function WeekendDeals() {
         {/* Product Cards */}
         <ScrollArea className="w-full">
           <div className="flex gap-2.5 pb-2 relative">
-            {products.map((product, idx) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
             {/* Next arrow */}
-            <button className="absolute -right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-red-600 z-10">
+            <button title="Next" className="absolute -right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-red-600 z-10">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
