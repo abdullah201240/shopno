@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { Plus, Minus, Flame } from "lucide-react";
+import { Plus, Minus, Tag } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface Product {
@@ -14,56 +14,58 @@ interface Product {
   image: string;
 }
 
-const trendingProducts: Product[] = [
+const bestDealsProducts: Product[] = [
   { 
-    id: "t1", 
-    name: "Nescafe Classic Coffee 200gm", 
+    id: "d1", 
+    name: "Surf Excel Detergent 1kg", 
+    price: 320, 
+    originalPrice: 400, 
+    badge: "৳80 OFF",
+    image: "/product/68b575087d266676045747a7_Surf-Excel-1kg_1_220.webp"
+  },
+  { 
+    id: "d2", 
+    name: "Vim Dishwash Liquid 950ml", 
+    price: 180, 
+    originalPrice: 220, 
+    badge: "৳40 OFF",
+    image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp"
+  },
+  { 
+    id: "d3", 
+    name: "Kellogg's Chocos 385gm", 
+    price: 450, 
+    originalPrice: 520, 
+    badge: "৳70 OFF",
+    image: "/product/68931d03253062493943793c_Kelloggs-Chocos-385gm-Poly_1_220.webp"
+  },
+  { 
+    id: "d4", 
+    name: "Quaker Oats 500gm", 
     price: 280, 
     originalPrice: 350, 
     badge: "৳70 OFF",
-    image: "/product/65fa93b5115075f231ec4d26_Nescafe-Classic-Coffee-200gm-Pouch_1_220.webp"
+    image: "/product/69529da2c276531e009435f8_Quaker-Oats-50050gm-Poly-Pack_1_220.webp"
   },
   { 
-    id: "t2", 
-    name: "Diploma Milk Powder 1kg", 
+    id: "d5", 
+    name: "Starship Full Cream Milk Powder 1kg", 
     price: 650, 
-    image: "/product/65fa9503115075f231ec6941_Diploma-Instant-Full-Cream-Milk-Powder-1kg-Foil-Pack_1_220.webp"
-  },
-  { 
-    id: "t3", 
-    name: "Cadbury Dairy Milk Silk", 
-    price: 120, 
-    originalPrice: 150, 
-    badge: "৳30 OFF",
-    image: "/product/65fa9656d61902ef23079b4a_Cadbury-Dairy-Milk-Silk-Chocolate-16010gm_1_220.webp"
-  },
-  { 
-    id: "t4", 
-    name: "Freedom Wings 16 Pads", 
-    price: 480, 
-    originalPrice: 600, 
-    badge: "৳120 OFF",
-    image: "/product/65fa97abd61902ef23080a67_Freedom-Super-Dry-Heavy-Flow-Wings-16-Pads_1_220.webp"
-  },
-  { 
-    id: "t5", 
-    name: "Nucella Chocolate Spread 400gm", 
-    price: 450, 
-    originalPrice: 550, 
+    originalPrice: 750, 
     badge: "৳100 OFF",
-    image: "/product/65fa9751d61902ef2307b963_Nucella-Chocolate-Spread-400gm_1_220.webp"
+    image: "/product/68f6095d974218ccf6c62f0a_Starship-Full-Cream-Milk-Power-1kg-Poly_1_220.webp"
   },
   { 
-    id: "t6", 
-    name: "Radhuni Haleem Mix 200gm", 
-    price: 720, 
-    originalPrice: 900, 
-    badge: "৳180 OFF",
-    image: "/product/65fa95b2115075f231ecc8f6_Radhuni-Haleem-Mix-200gm_1_220.webp"
+    id: "d6", 
+    name: "Fresh Milk Powder 1kg", 
+    price: 580, 
+    originalPrice: 680, 
+    badge: "৳100 OFF",
+    image: "/product/67dfa6abec6779a891ed4b50_Fresh-Instant-Full-Cream-Milk-Powder-1000gm_1_220.webp"
   },
 ];
 
-const HotAndTrending: React.FC = () => {
+const BestDeals: React.FC = () => {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const rowRef = useRef<HTMLDivElement>(null);
 
@@ -81,9 +83,19 @@ const HotAndTrending: React.FC = () => {
 
   return (
     <section className="px-2 py-4">
+      {/* Banner Image */}
+      <div className="relative w-full h-32 md:h-40 mb-4 rounded-xl overflow-hidden">
+        <Image
+          src="/catagory/69a001f5e42d6823d84676f0_uniliverbanner_D_1_1552.webp"
+          alt="Best Deals Banner"
+          fill
+          className="object-cover"
+        />
+      </div>
+
       <h2 className="text-center text-lg font-bold uppercase tracking-widest text-gray-900 mb-4 flex items-center justify-center gap-2">
-        <Flame className="h-5 w-5 text-red-600" />
-        Hot & Trending
+        <Tag className="h-5 w-5 text-green-600" />
+        Best Deals
       </h2>
 
       <div className="relative">
@@ -101,7 +113,7 @@ const HotAndTrending: React.FC = () => {
           className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide"
           style={{ scrollBehavior: "smooth" }}
         >
-          {trendingProducts.map((product) => {
+          {bestDealsProducts.map((product) => {
             const qty = quantities[product.id] || 0;
 
             return (
@@ -192,4 +204,4 @@ const HotAndTrending: React.FC = () => {
   );
 };
 
-export default HotAndTrending;
+export default BestDeals;

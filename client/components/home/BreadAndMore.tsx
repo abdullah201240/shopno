@@ -107,7 +107,7 @@ const BreadAndMore: React.FC = () => {
               >
                 {/* Badge */}
                 {product.badge && (
-                  <span className="self-start text-[10px] font-semibold bg-red-600 text-white px-1.5 py-0.5 mb-1">
+                  <span className="self-start text-[10px] font-semibold bg-[#C82128] text-white px-1.5 py-0.5 mb-1">
                     {product.badge}
                   </span>
                 )}
@@ -141,7 +141,7 @@ const BreadAndMore: React.FC = () => {
                       ৳{product.originalPrice}
                     </span>
                   )}
-                  <span className="text-sm font-bold text-red-600">
+                  <span className="text-sm font-bold text-[#C82128]">
                     ৳{product.price}
                   </span>
                 </div>
@@ -151,12 +151,12 @@ const BreadAndMore: React.FC = () => {
                   {qty === 0 ? (
                     <button
                       onClick={() => updateQuantity(product.id, 1)}
-                      className="w-full rounded-full bg-red-600 text-white text-xs font-semibold py-1.5"
+                      className="w-full rounded-full bg-[#C82128] text-white text-xs font-semibold py-1.5"
                     >
                       Add to Cart
                     </button>
                   ) : (
-                    <div className="flex justify-between items-center bg-red-600 text-white rounded-full px-3 py-1.5">
+                    <div className="flex justify-between items-center bg-[#C82128] text-white rounded-full px-3 py-1.5">
                       <Minus
                         size={14}
                         className="cursor-pointer"

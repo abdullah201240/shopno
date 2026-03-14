@@ -1,6 +1,8 @@
 
 import HomeHero from "@/components/home/HomeHero";
 import BreadAndMore from "@/components/home/BreadAndMore";
+import BestDeals from "@/components/home/BestDeals";
+import WeekendDeals from "@/components/home/WeekendDeals";
 
 export default function Home() {
   return (
@@ -10,6 +12,10 @@ export default function Home() {
 
       {/* Bread & More Section */}
       <BreadAndMore />
+
+      {/* Best Deals Section */}
+      <BestDeals />
+      <WeekendDeals/>
       
     </div>
   );
