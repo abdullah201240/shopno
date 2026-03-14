@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { 
-  Apple, 
-  Baby, 
+import {
+  Apple,
+  Baby,
   SprayCan,
   Dog,
   Sparkles
@@ -12,16 +12,14 @@ import CategorySidebar from "./CategorySidebar";
 import HeroSlider from "./HeroSlider";
 import PromoCategorySlider from "./PromoCategorySlider";
 import TrustBadges from "./TrustBadges";
-import RecommendedForYou from "./RecommendedForYou";
-import HotAndTrending from "./HotAndTrending";
 
 const sidebarCategories = [
-  { 
-    name: "Ramadan", icon: Apple, slug: "ramadan", 
-    subs: [] 
+  {
+    name: "Ramadan", icon: Apple, slug: "ramadan",
+    subs: []
   },
-  { 
-    name: "Food", icon: Apple, slug: "food", 
+  {
+    name: "Food", icon: Apple, slug: "food",
     subs: [
       { name: "Fruits & Vegetables", slug: "fruits-vegetables", subSubs: ["Fresh Fruits", "Fresh Vegetables", "Dried Fruits"] },
       { name: "Meat & Fish", slug: "meat-fish", subSubs: ["Fresh Meat", "Fish", "Sea Food"] },
@@ -37,26 +35,26 @@ const sidebarCategories = [
       { name: "Breakfast", slug: "breakfast", subSubs: ["Cereal", "Oatmeal", "Bread"] },
       { name: "Sauces & Pickles", slug: "sauces-pickles", subSubs: ["Sauce", "Pickles", "Chutney"] },
       { name: "Cooking", slug: "cooking", subSubs: ["Oil", "Spices", "Salt"] }
-    ] 
+    ]
   },
-  { 
-    name: "Baby Food & Care", icon: Baby, slug: "baby-food-care", 
+  {
+    name: "Baby Food & Care", icon: Baby, slug: "baby-food-care",
     subs: [
       { name: "Baby Food", slug: "baby-food", subSubs: ["Formula", "Cerelac", "Baby Snacks"] },
       { name: "Baby Wipes", slug: "baby-wipes", subSubs: ["Wet Wipes", "Dry Wipes", "Baby Towels"] },
       { name: "Baby Bath & Skincare", slug: "baby-bath", subSubs: ["Baby Soap", "Baby Lotion", "Baby Oil"] },
       { name: "Baby Oral Care", slug: "baby-oral", subSubs: ["Toothbrush", "Toothpaste", "Teether"] },
       { name: "Baby Accessories", slug: "baby-accessories", subSubs: ["Bottle", "Pacifier", "Diaper Bag"] }
-    ] 
+    ]
   },
-  { 
-    name: "Diapers", icon: Baby, slug: "diapers", 
+  {
+    name: "Diapers", icon: Baby, slug: "diapers",
     subs: [
       { name: "Baby Diapers", slug: "baby-diapers", subSubs: ["Newborn", "Small", "Medium", "Large", "XL"] }
-    ] 
+    ]
   },
-  { 
-    name: "Home Cleaning", icon: SprayCan, slug: "home-cleaning", 
+  {
+    name: "Home Cleaning", icon: SprayCan, slug: "home-cleaning",
     subs: [
       { name: "Dish Cleaner", slug: "dish-cleaner", subSubs: ["Dish Soap", "Dish Liquid", "Dish Powder"] },
       { name: "Laundry", slug: "laundry", subSubs: ["Detergent", "Fabric Softener", "Bleach"] },
@@ -65,31 +63,31 @@ const sidebarCategories = [
       { name: "Toilet Cleaners", slug: "toilet-cleaners", subSubs: ["In-cistern", "Brush", "Liquid"] },
       { name: "Pest Control", slug: "pest-control", subSubs: ["Mousetrap", "Insect Spray", "Cockroach Killer"] },
       { name: "Trash Supplies", slug: "trash-supplies", subSubs: ["Trash Bag", "Dustbin", "Dustpan"] }
-    ] 
+    ]
   },
-  { 
-    name: "Pet Care", icon: Dog, slug: "pet-care", 
+  {
+    name: "Pet Care", icon: Dog, slug: "pet-care",
     subs: [
       { name: "Cat Food", slug: "cat-food", subSubs: ["Dry Food", "Wet Food", "Treats"] }
-    ] 
+    ]
   },
-  { 
-    name: "Beauty & Health", icon: Sparkles, slug: "beauty-health", 
+  {
+    name: "Beauty & Health", icon: Sparkles, slug: "beauty-health",
     subs: [
       { name: "Beauty Care", slug: "beauty-care", subSubs: ["Skincare", "Makeup", "Hair Care"] },
       { name: "Health Care", slug: "health-care", subSubs: ["Vitamins", "Medicine", "First Aid"] }
-    ] 
+    ]
   },
-  { 
-    name: "Fashion & Lifestyle", icon: SprayCan, slug: "fashion-lifestyle", 
+  {
+    name: "Fashion & Lifestyle", icon: SprayCan, slug: "fashion-lifestyle",
     subs: [
       { name: "Kurtis Tunics & Tops", slug: "kurtis", subSubs: ["Cotton", "Silk", "Synthetic"] },
       { name: "Skirts & Palazzos", slug: "skirts", subSubs: ["Long Skirt", "Short Skirt", "Palazzo"] },
       { name: "Lungi", slug: "lungi", subSubs: ["Cotton Lungi", "Silk Lungi", "Printed Lungi"] }
-    ] 
+    ]
   },
-  { 
-    name: "Home & Kitchen", icon: Apple, slug: "home-kitchen", 
+  {
+    name: "Home & Kitchen", icon: Apple, slug: "home-kitchen",
     subs: [
       { name: "Home Appliance", slug: "home-appliance", subSubs: ["Fan", "Light", "Heater"] },
       { name: "Kitchen Accessories", slug: "kitchen-accessories", subSubs: [" utensils", "Cookware", "Bakeware"] },
@@ -97,17 +95,17 @@ const sidebarCategories = [
       { name: "Home Accessories", slug: "home-accessories", subSubs: ["Curtains", "Carpets", "Cushions"] },
       { name: "Lights & Electrical", slug: "lights", subSubs: ["LED", "Bulb", "Tube"] },
       { name: "Tools & Hardware", slug: "tools-hardware", subSubs: ["Screwdriver", "Hammer", "Wrench"] }
-    ] 
+    ]
   },
-  { 
-    name: "Stationeries", icon: SprayCan, slug: "stationeries", 
+  {
+    name: "Stationeries", icon: SprayCan, slug: "stationeries",
     subs: [
       { name: "Batteries", slug: "batteries", subSubs: ["AA", "AAA", "Rechargeable"] },
       { name: "Writing & Drawing", slug: "writing", subSubs: ["Pen", "Pencil", "Notebook"] }
-    ] 
+    ]
   },
-  { 
-    name: "Toys & Sports", icon: Apple, slug: "toys-sports", 
+  {
+    name: "Toys & Sports", icon: Apple, slug: "toys-sports",
     subs: [
       { name: "Sports & Outdoor", slug: "sports-outdoor", subSubs: ["Cricket", "Football", "Badminton"] },
       { name: "Soft Toys", slug: "soft-toys", subSubs: ["Teddy Bear", "Pillow", "Character"] },
@@ -139,28 +137,28 @@ const banners = [
 const HomeHero = () => {
   return (
     <section className="relative z-0">
-      <div className="flex flex-col lg:flex-row gap-0 lg:gap-4 h-auto">
-        {/* Left Sidebar */}
+      <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 h-auto">
+        {/* Left Sidebar - Hidden on lg and below handled in CategorySidebar */}
         <CategorySidebar categories={sidebarCategories} />
 
         {/* Right Content Area */}
-        <div className="flex-1 flex flex-col gap-4 h-[550px]">
+        <div className="flex-1 flex flex-col gap-2 min-h-[200px] sm:min-h-[400px] lg:h-[550px]">
           {/* Slider Section */}
-          <HeroSlider banners={banners} />
+          <div className="h-[200px] sm:h-[350px]">
+            <HeroSlider banners={banners} />
+          </div>
 
           {/* Promo Category Row - Slider */}
-          <PromoCategorySlider categories={promoCategories} />
+          <div className="block">
+            <PromoCategorySlider categories={promoCategories} />
+          </div>
         </div>
       </div>
 
       {/* Trust Badges */}
       <TrustBadges />
 
-      {/* Recommended for You */}
-      <RecommendedForYou />
 
-      {/* Hot & Trending */}
-      <HotAndTrending />
     </section>
   );
 };

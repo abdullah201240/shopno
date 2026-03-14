@@ -34,38 +34,38 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
           )}
         >
           <div className="w-full h-full bg-gray-200 overflow-hidden">
-            <img 
-              src={banner.image} 
+            <img
+              src={banner.image}
               alt={banner.alt}
               className="w-full h-full object-cover"
             />
           </div>
         </div>
       ))}
-      
+
       {/* Navigation Buttons */}
-      <button 
-        className="absolute left-3 top-1/2 -translate-y-1/2 h-9 w-9 bg-[#FAD816] hover:bg-[#FAD816] text-black rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center"
+      <button
+        className="absolute left-2 lg:left-3 top-1/2 -translate-y-1/2 h-7 w-7 lg:h-9 lg:w-9 bg-[#FAD816] hover:bg-[#FAD816] text-black rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center sm:opacity-100 opacity-50"
         onClick={() => setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length)}
       >
-        <ChevronRight className="h-5 w-5 rotate-180" />
+        <ChevronRight className="h-4 w-4 lg:h-5 lg:w-5 rotate-180" />
       </button>
-      <button 
-        className="absolute right-3 top-1/2 -translate-y-1/2 h-9 w-9 bg-[#FAD816] hover:bg-[#FAD816] text-black rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center"
+      <button
+        className="absolute right-2 lg:right-3 top-1/2 -translate-y-1/2 h-7 w-7 lg:h-9 lg:w-9 bg-[#FAD816] hover:bg-[#FAD816] text-black rounded-full shadow-md transition-all hover:scale-105 active:scale-95 z-50 flex items-center justify-center sm:opacity-100 opacity-50"
         onClick={() => setCurrentSlide((prev) => (prev + 1) % banners.length)}
       >
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-4 w-4 lg:h-5 lg:w-5" />
       </button>
-      
+
       {/* Pagination Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-50">
+      <div className="absolute bottom-2 lg:bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 lg:gap-1.5 z-50">
         {banners.map((_, i) => (
-          <button 
+          <button
             key={i}
             onClick={() => setCurrentSlide(i)}
             className={cn(
               "h-1 rounded-full transition-all duration-300",
-              i === currentSlide ? "bg-[#C82128] w-6" : "bg-white/60 w-2 hover:bg-white/80"
+              i === currentSlide ? "bg-[#C82128] w-4 lg:w-6" : "bg-white/60 w-1.5 lg:w-2 hover:bg-white/80"
             )}
           />
         ))}

@@ -15,7 +15,19 @@ interface PromoCategorySliderProps {
 
 const PromoCategorySlider: React.FC<PromoCategorySliderProps> = ({ categories }) => {
   const [promoIndex, setPromoIndex] = useState(0);
-  const itemsPerPage = 5;
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) setItemsPerPage(2);
+      else if (window.innerWidth < 1024) setItemsPerPage(3);
+      else setItemsPerPage(5);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   return (
