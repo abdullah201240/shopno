@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import Link from "next/link";
 import { Plus, Minus, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ const ProductCard = ({
         <div className="relative mb-2 px-2 pt-2">
           <Link href={`/product/${id}`}>
             <AspectRatio ratio={1 / 1} className="overflow-hidden">
-              <Image
+              <ImageWithFallback
                 src={image}
                 alt={name}
                 fill

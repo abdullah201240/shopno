@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import Image from "next/image";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus, Flame } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
@@ -118,7 +118,7 @@ const HotAndTrending: React.FC = () => {
                 {/* Image */}
                 <div className="px-2 pt-2">
                   <AspectRatio ratio={1}>
-                    <Image
+                    <ImageWithFallback
                       src={product.image}
                       alt={product.name}
                       fill

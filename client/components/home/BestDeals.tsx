@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import Image from "next/image";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus, Tag } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
@@ -85,7 +85,7 @@ const BestDeals: React.FC = () => {
     <section className="px-2 py-4">
       {/* Banner Image */}
       <div className="relative w-full h-40 md:h-48 lg:h-52 mb-4 rounded-xl overflow-hidden">
-        <Image
+        <ImageWithFallback
           src="/catagory/69a001f5e42d6823d84676f0_uniliverbanner_D_1_1552.webp"
           alt="Best Deals Banner"
           fill
@@ -130,7 +130,7 @@ const BestDeals: React.FC = () => {
                 {/* Image */}
                 <div className="px-2 pt-2">
                   <AspectRatio ratio={1}>
-                    <Image
+                    <ImageWithFallback
                       src={product.image}
                       alt={product.name}
                       fill

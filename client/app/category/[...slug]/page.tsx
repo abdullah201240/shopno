@@ -93,60 +93,20 @@ export default function CategoryPage() {
         </nav>
       </div>
 
-      <div className="max-w-350 mx-auto px-4 lg:px-10 pt-6">
+      <div className="max-w-350 mx-auto">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-          
-          {/* Left Sidebar Filters (Shwapno #F2F2F2 style boxes) */}
-          <div className="hidden lg:block w-65 shrink-0">
-            <div className="bg-[#F2F2F2] rounded-xl p-5 mb-4 border border-[#e5e5e5]">
-               <h3 className="text-sm font-bold text-black mb-4 uppercase tracking-wide">Price</h3>
-               <div className="flex flex-col gap-2">
-                 <input title="range" type="range" className="w-full accent-[#D11218] cursor-pointer" min="10" max="5000" />
-                 <div className="flex items-center justify-between text-xs font-bold text-[#D11218]">
-                    <span>৳ 0</span>
-                    <span>৳ 5000</span>
-                 </div>
-               </div>
-            </div>
-
-            <div className="bg-[#F2F2F2] rounded-xl p-5 mb-4 border border-[#e5e5e5]">
-               <h3 className="text-sm font-bold text-black mb-4 uppercase tracking-wide">Delivery Options</h3>
-               <div className="flex flex-col gap-3">
-                 <label className="flex items-center gap-2 cursor-pointer group">
-                   <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${expressDelivery ? 'bg-[#D11218] border-[#D11218]' : 'bg-white border-gray-300'}`}>
-                     {expressDelivery && <Check className="w-3 h-3 text-white" />}
-                   </div>
-                   <input type="checkbox" className="hidden" checked={expressDelivery} onChange={() => setExpressDelivery(!expressDelivery)} />
-                   <span className="text-[14px] text-gray-700 group-hover:text-[#D11218] font-medium transition-colors">Express Delivery (42)</span>
-                 </label>
-               </div>
-            </div>
-            
-            <div className="bg-[#F2F2F2] rounded-xl p-5 border border-[#e5e5e5]">
-               <h3 className="text-sm font-bold text-black mb-4 uppercase tracking-wide">Top Brands</h3>
-               <div className="flex flex-col gap-3">
-                 {['Fresh', 'Diploma', 'Nescafe', 'Unilever', 'Aarong Dairy'].map(brand => (
-                   <label key={brand} className="flex items-center gap-2 cursor-pointer group">
-                     <div className="w-4 h-4 rounded border bg-white border-gray-300 flex items-center justify-center group-hover:border-[#D11218] transition-colors"></div>
-                     <span className="text-[14px] text-gray-700 group-hover:text-[#D11218] font-medium transition-colors">{brand}</span>
-                   </label>
-                 ))}
-               </div>
-            </div>
-          </div>
-
           {/* Main Content Area */}
           <div className="flex-1 min-w-0">
             
             {/* Thematic Banner */}
-            <div className="w-full h-32 sm:h-40 md:h-45 rounded-2xl mb-6 relative overflow-hidden shadow-sm">
+            <div className="w-full h-32 sm:h-40 md:h-45 relative overflow-hidden">
                {/* Category Image Background */}
                {CATEGORY_BANNERS[rootCategory] ? (
                  <Image 
                    src={CATEGORY_BANNERS[rootCategory]}
                    alt={title}
                    fill
-                   className="object-cover"
+                   className="object-fit"
                    priority
                  />
                ) : (
