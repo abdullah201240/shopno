@@ -18,10 +18,10 @@ export default function CartPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-100 py-3 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      <div className="hidden md:block">
+        <div className="max-w-350 mx-auto">
           <nav className="flex items-center text-[13px] text-gray-500 font-medium">
             <Link href="/" className="hover:text-brand-primary flex items-center gap-1">
               <Home className="w-3.5 h-3.5" />
@@ -33,13 +33,13 @@ export default function CartPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6">
+      <div className="max-w-350 mx-auto pt-4">
         <h1 className="text-2xl md:text-3xl font-black text-gray-900 mb-6 font-sans tracking-tight">
           Your Shopping Bag
         </h1>
 
         {cartItems.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 flex flex-col items-center justify-center min-h-[40vh]">
+          <div className="bg-white  p-4 flex flex-col items-center justify-center min-h-[40vh]">
             <div className="w-32 h-32 bg-gray-50 rounded-full flex items-center justify-center mb-6">
               <Image 
                 src="/shwapno_logo.png"
@@ -63,7 +63,7 @@ export default function CartPage() {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Cart Items List */}
             <div className="flex-1">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="bg-white overflow-hidden">
                 <div className="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 border-b border-gray-100 text-[13px] font-bold text-gray-500 uppercase tracking-wider">
                   <div className="col-span-6">Product Details</div>
                   <div className="col-span-3 text-center">Quantity</div>
@@ -87,7 +87,7 @@ export default function CartPage() {
 
                       {/* Product Info */}
                       <div className="col-span-1 md:col-span-6 flex items-start gap-4">
-                        <Link href={`/product/${item.id}`} className="block w-20 h-20 md:w-24 md:h-24 shrink-0 bg-gray-50 rounded-md p-2 border border-gray-100 relative group">
+                        <Link href={`/product/${item.id}`} className="block w-20 h-20 md:w-24 md:h-24 shrink-0 bg-gray-50  p-2 relative group">
                           <Image src={item.image} alt={item.name} fill className="object-contain group-hover:scale-105 transition-transform" />
                         </Link>
                         <div className="flex flex-col py-1 pr-8 md:pr-0">
@@ -108,7 +108,7 @@ export default function CartPage() {
 
                       {/* Quantity Selector */}
                       <div className="col-span-1 md:col-span-3 flex justify-start md:justify-center items-center mt-2 md:mt-0">
-                        <div className="flex items-center border border-gray-200 rounded-lg bg-white overflow-hidden shadow-sm h-10 w-[120px]">
+                        <div className="flex items-center  overflow-hidden shadow-sm h-10 w-[120px]">
                           <button 
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             className="w-10 h-full flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-black transition-colors"
@@ -169,7 +169,7 @@ export default function CartPage() {
 
             {/* Order Summary Sidebar */}
             <div className="lg:w-[380px] shrink-0">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-24">
+              <div className=" shadow-sm  p-4 sticky top-24">
                 <h2 className="text-lg font-black text-gray-900 mb-6 border-b border-gray-100 pb-4">Order Summary</h2>
                 
                 <div className="flex flex-col gap-4 mb-6">
