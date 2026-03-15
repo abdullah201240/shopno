@@ -8,18 +8,22 @@ import {
   Star,
   ChevronRight,
   Home,
-  Heart,
   Minus,
   Plus,
   Truck,
   ShieldCheck,
   ThumbsUp,
-  CheckCircle2
+  CheckCircle2,
+  X,
+  Send,
+  Smile
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import CustomProductCard from "@/components/ui/custom/ProductCard";
 import { useCart } from "@/context/CartContext";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 // Mock Data Source for fallback products
 const MOCK_PRODUCT = {
@@ -113,6 +117,78 @@ const RELATED_PRODUCTS = [
     newPrice: 365,
     discount: 55,
     unit: "Per Piece",
+  },
+  {
+    id: "11",
+    name: "Vim Dishwash Liquid 950ml",
+    image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp",
+    oldPrice: 280,
+    newPrice: 245,
+    discount: 35,
+    unit: "Per Piece",
+  },
+  {
+    id: "12",
+    name: "Kellogg's Chocos 385gm",
+    image: "/product/68931d03253062493943793c_Kelloggs-Chocos-385gm-Poly_1_220.webp",
+    oldPrice: 520,
+    newPrice: 450,
+    discount: 70,
+    unit: "Per Piece",
+  },
+  {
+    id: "13",
+    name: "Quaker Oats 500gm",
+    image: "/product/69529da2c276531e009435f8_Quaker-Oats-50050gm-Poly-Pack_1_220.webp",
+    oldPrice: 350,
+    newPrice: 280,
+    discount: 70,
+    unit: "Per Piece",
+  },
+  {
+    id: "14",
+    name: "Starship Full Cream Milk Powder 1kg",
+    image: "/product/68f6095d974218ccf6c62f0a_Starship-Full-Cream-Milk-Power-1kg-Poly_1_220.webp",
+    oldPrice: 850,
+    newPrice: 750,
+    discount: 100,
+    unit: "Per Piece",
+  },
+  {
+    id: "15",
+    name: "Fresh Milk Powder 1kg",
+    image: "/product/67dfa6abec6779a891ed4b50_Fresh-Instant-Full-Cream-Milk-Powder-1000gm_1_220.webp",
+    oldPrice: 680,
+    newPrice: 580,
+    discount: 100,
+    unit: "Per Piece",
+  },
+  {
+    id: "16",
+    name: "Nescafe Classic 200gm Jar",
+    image: "/product/65fa9389115075f231ec4af6_Nescafe-Classic-200gm-Jar_1_220.webp",
+    oldPrice: 650,
+    newPrice: 580,
+    discount: 70,
+    unit: "Per Piece",
+  },
+  {
+    id: "17",
+    name: "Pusti Soyabean Oil 5Ltr.",
+    image: "/product/686cf6633d66137b62495be2_Aura-Milk-Pusti-1kg_1_220.webp",
+    oldPrice: 1050,
+    newPrice: 955,
+    discount: 95,
+    unit: "Per Piece",
+  },
+  {
+    id: "18",
+    name: "Quaker Oats Jar 450gm",
+    image: "/product/65fa9663d61902ef2307a5f8_Quaker-Oats-1000100gm-Jar_1_220.webp",
+    oldPrice: 380,
+    newPrice: 360,
+    discount: 20,
+    unit: "Per Piece",
   }
 ];
 
@@ -126,6 +202,13 @@ export default function ProductDetailsPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<"desc" | "specs" | "reviews">("desc");
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewForm, setReviewForm] = useState({
+    name: "",
+    rating: 0,
+    comment: "",
+  });
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
   const { addToCart } = useCart();
 
@@ -140,6 +223,22 @@ export default function ProductDetailsPage() {
       quantity: quantity
     });
     // optionally give toast feedback here
+  };
+
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reviewForm.name || !reviewForm.rating || !reviewForm.comment) {
+      alert("Please fill in all fields");
+      return;
+    }
+    // In a real app, you would submit this to your backend
+    console.log("Review submitted:", reviewForm);
+    setReviewSubmitted(true);
+    setTimeout(() => {
+      setShowReviewModal(false);
+      setReviewSubmitted(false);
+      setReviewForm({ name: "", rating: 0, comment: "" });
+    }, 2000);
   };
 
   // Zoom feature state
@@ -434,7 +533,10 @@ export default function ProductDetailsPage() {
                     ))}
                   </div>
 
-                  <Button className="w-full mt-8 bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold h-12 transition-colors rounded-lg">
+                  <Button 
+                    onClick={() => setShowReviewModal(true)}
+                    className="w-full mt-8 bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold h-12 transition-colors rounded-lg"
+                  >
                     Write a Review
                   </Button>
                 </div>
@@ -481,26 +583,202 @@ export default function ProductDetailsPage() {
           </div>
         </div>
         
-        {/* RELATED PRODUCTS */}
-        <div className="mb-10">
-           <h2 className="text-xl md:text-2xl font-black text-gray-900 mb-6 px-4 md:px-0 tracking-tight">Similar Products</h2>
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-2 md:px-0">
-             {RELATED_PRODUCTS.map((prod) => (
-               <CustomProductCard
-                 key={prod.id}
-                 id={prod.id}
-                 name={prod.name}
-                 image={prod.image}
-                 price={prod.newPrice}
-                 originalPrice={prod.oldPrice}
-                 unit={prod.unit}
-                 discount={`৳${prod.discount} OFF`}
-               />
-             ))}
+        {/* RELATED PRODUCTS - Horizontal Scroll */}
+        <div className="mb-10 px-2 py-4">
+           <h2 className="text-center text-lg font-bold uppercase tracking-widest text-gray-900 mb-4">
+             Similar Products
+           </h2>
+           <div className="relative">
+             {/* LEFT SCROLL BUTTON */}
+             <button
+               onClick={() => {
+                 const container = document.getElementById('similar-products-container');
+                 if (container) container.scrollBy({ left: -320, behavior: "smooth" });
+               }}
+               className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-yellow-400 text-black text-lg flex items-center justify-center hover:bg-yellow-500 transition-colors"
+             >
+               ‹
+             </button>
+
+             {/* ROW */}
+             <div
+               id="similar-products-container"
+               className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide scroll-smooth"
+             >
+               {RELATED_PRODUCTS.map((prod) => (
+                 <div
+                   key={prod.id}
+                   className="shrink-0 flex flex-col w-[47%] sm:w-[30%] md:w-[22%] lg:w-[20%] bg-white self-stretch"
+                 >
+                   <CustomProductCard
+                     id={prod.id}
+                     name={prod.name}
+                     image={prod.image}
+                     price={prod.newPrice}
+                     originalPrice={prod.oldPrice}
+                     unit={prod.unit}
+                     discount={`৳${prod.discount} OFF`}
+                   />
+                 </div>
+               ))}
+             </div>
+
+             {/* RIGHT SCROLL BUTTON */}
+             <button
+               onClick={() => {
+                 const container = document.getElementById('similar-products-container');
+                 if (container) container.scrollBy({ left: 320, behavior: "smooth" });
+               }}
+               className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-yellow-400 text-black text-lg flex items-center justify-center hover:bg-yellow-500 transition-colors"
+             >
+               ›
+             </button>
            </div>
         </div>
 
       </div>
+
+      {/* Review Modal */}
+      {showReviewModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+              <h3 className="text-xl font-bold text-gray-900">Write a Review</h3>
+              <button
+                onClick={() => setShowReviewModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6">
+              {reviewSubmitted ? (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">Thank You!</h4>
+                  <p className="text-gray-600">Your review has been submitted successfully.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleReviewSubmit} className="space-y-4">
+                  {/* Product Info */}
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mb-4">
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      width={60}
+                      height={60}
+                      className="object-contain"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-gray-900 line-clamp-2">
+                        {product.name}
+                      </p>
+                      <p className="text-xs text-gray-500">{product.unit}</p>
+                    </div>
+                  </div>
+
+                  {/* Name Input */}
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                      Your Name <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      type="text"
+                      value={reviewForm.name}
+                      onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
+                      placeholder="Enter your name"
+                      className="w-full"
+                      required
+                    />
+                  </div>
+
+                  {/* Rating */}
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                      Rating <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex items-center gap-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setReviewForm({ ...reviewForm, rating: star })}
+                          className="focus:outline-none transition-transform hover:scale-110"
+                        >
+                          <Star
+                            className={`w-8 h-8 ${
+                              star <= reviewForm.rating
+                                ? 'fill-yellow-400 text-yellow-400'
+                                : 'fill-gray-200 text-gray-200'
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                    {reviewForm.rating > 0 && (
+                      <p className="text-sm text-gray-600 mt-2">
+                        {reviewForm.rating === 1 && "Poor"}
+                        {reviewForm.rating === 2 && "Fair"}
+                        {reviewForm.rating === 3 && "Good"}
+                        {reviewForm.rating === 4 && "Very Good"}
+                        {reviewForm.rating === 5 && "Excellent"}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Comment */}
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                      Your Review <span className="text-red-500">*</span>
+                    </label>
+                    <Textarea
+                      value={reviewForm.comment}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                      placeholder="Share your experience with this product..."
+                      rows={5}
+                      className="w-full resize-none"
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      {reviewForm.comment.length}/500 characters
+                    </p>
+                  </div>
+
+                  {/* Guidelines */}
+                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                    <div className="flex items-start gap-2">
+                      <Smile className="w-4 h-4 text-blue-600 mt-0.5" />
+                      <div className="text-xs text-gray-600">
+                        <p className="font-bold text-gray-900 mb-1">Review Guidelines:</p>
+                        <ul className="list-disc list-inside space-y-0.5">
+                          <li>Be honest and helpful</li>
+                          <li>Focus on product quality and features</li>
+                          <li>Avoid offensive language</li>
+                          <li>Don't include personal information</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    className="w-full h-12 bg-[#C82128] hover:bg-[#A81A20] text-white font-bold shadow-lg"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Submit Review
+                  </Button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useCart } from "@/context/CartContext";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus, Croissant } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Link from "next/link";
 
 interface Product {
   id: string;
@@ -135,14 +136,16 @@ const BreadAndMore: React.FC = () => {
 
                 {/* Image */}
                 <div className="px-2 pt-2">
-                  <AspectRatio ratio={1}>
-                    <ImageWithFallback
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-contain"
-                    />
-                  </AspectRatio>
+                  <Link href={`/product/${product.id}`}>
+                    <AspectRatio ratio={1}>
+                      <ImageWithFallback
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-contain hover:scale-105 transition-transform duration-300 cursor-pointer"
+                      />
+                    </AspectRatio>
+                  </Link>
                 </div>
 
                 {/* Delivery */}
@@ -151,9 +154,11 @@ const BreadAndMore: React.FC = () => {
                 </p>
 
                 {/* Name */}
-                <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-8">
-                  {product.name}
-                </p>
+                <Link href={`/product/${product.id}`}>
+                  <p className="text-center text-xs font-semibold px-1 mt-1 line-clamp-2 min-h-8 hover:text-[#C82128] cursor-pointer transition-colors">
+                    {product.name}
+                  </p>
+                </Link>
 
                 {/* Price */}
                 <div className="flex justify-center items-center gap-1 mt-1">
