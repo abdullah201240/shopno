@@ -36,7 +36,7 @@ const FloatingCart = () => {
     <>
       {/* Floating Cart Button */}
       <div 
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-[100] hidden md:flex flex-col items-center"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-[100] flex md:flex flex-col items-center"
         onMouseEnter={() => setIsHovered(true)}
       >
         <Link 
