@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
+import { useCart } from "@/context/CartContext";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus, Tag } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -12,6 +13,7 @@ interface Product {
   originalPrice?: number;
   badge?: string;
   image: string;
+  unit?: string;
 }
 
 const bestDealsProducts: Product[] = [
@@ -21,6 +23,7 @@ const bestDealsProducts: Product[] = [
     price: 320, 
     originalPrice: 400, 
     badge: "৳80 OFF",
+    unit: "1kg",
     image: "/product/68b575087d266676045747a7_Surf-Excel-1kg_1_220.webp"
   },
   { 
@@ -29,6 +32,7 @@ const bestDealsProducts: Product[] = [
     price: 180, 
     originalPrice: 220, 
     badge: "৳40 OFF",
+    unit: "950ml",
     image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp"
   },
   { 
@@ -37,6 +41,7 @@ const bestDealsProducts: Product[] = [
     price: 450, 
     originalPrice: 520, 
     badge: "৳70 OFF",
+    unit: "385gm",
     image: "/product/68931d03253062493943793c_Kelloggs-Chocos-385gm-Poly_1_220.webp"
   },
   { 
@@ -45,6 +50,7 @@ const bestDealsProducts: Product[] = [
     price: 280, 
     originalPrice: 350, 
     badge: "৳70 OFF",
+    unit: "500gm",
     image: "/product/69529da2c276531e009435f8_Quaker-Oats-50050gm-Poly-Pack_1_220.webp"
   },
   { 
@@ -53,6 +59,7 @@ const bestDealsProducts: Product[] = [
     price: 650, 
     originalPrice: 750, 
     badge: "৳100 OFF",
+    unit: "1kg",
     image: "/product/68f6095d974218ccf6c62f0a_Starship-Full-Cream-Milk-Power-1kg-Poly_1_220.webp"
   },
   { 
@@ -61,19 +68,34 @@ const bestDealsProducts: Product[] = [
     price: 580, 
     originalPrice: 680, 
     badge: "৳100 OFF",
+    unit: "1kg",
     image: "/product/67dfa6abec6779a891ed4b50_Fresh-Instant-Full-Cream-Milk-Powder-1000gm_1_220.webp"
   },
 ];
 
 const BestDeals: React.FC = () => {
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const { addToCart, removeFromCart, cartItems } = useCart();
   const rowRef = useRef<HTMLDivElement>(null);
 
-  const updateQuantity = (id: string, delta: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] || 0) + delta),
-    }));
+  const getQuantity = (id: string) => {
+    const item = cartItems.find((i) => i.id === id);
+    return item?.quantity || 0;
+  };
+
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      unit: product.unit || "1pc",
+      quantity: 1,
+    });
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    removeFromCart(productId);
   };
 
   const scroll = (dir: number) => {
@@ -113,7 +135,7 @@ const BestDeals: React.FC = () => {
           className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide"
         >
           {bestDealsProducts.map((product) => {
-            const qty = quantities[product.id] || 0;
+            const qty = getQuantity(product.id);
 
             return (
               <div
@@ -165,23 +187,23 @@ const BestDeals: React.FC = () => {
                 <div className="p-2 mt-auto">
                   {qty === 0 ? (
                     <button
-                      onClick={() => updateQuantity(product.id, 1)}
+                      onClick={() => handleAddToCart(product)}
                       className="w-full rounded-full bg-[#C82128] text-white text-xs font-semibold py-1.5"
                     >
                       Add to Cart
                     </button>
                   ) : (
-                    <div className="flex justify-between items-center bg-[#C82128] text-white rounded-full px-3 py-1.5">
+                    <div className="flex justify-between items-center bg-[#FAD816] text-black rounded-full px-3 py-1.5">
                       <Minus
                         size={14}
                         className="cursor-pointer"
-                        onClick={() => updateQuantity(product.id, -1)}
+                        onClick={() => handleRemoveFromCart(product.id)}
                       />
                       <span className="text-xs font-bold">{qty}</span>
                       <Plus
                         size={14}
                         className="cursor-pointer"
-                        onClick={() => updateQuantity(product.id, 1)}
+                        onClick={() => handleAddToCart(product)}
                       />
                     </div>
                   )}

@@ -100,11 +100,11 @@ const ProductCard = ({
               Add to Bag
             </Button>
           ) : (
-            <div className="flex items-center justify-between bg-[#C82128] text-white rounded-md h-8 px-1">
+            <div className="flex items-center justify-between bg-[#FAD816] text-black rounded-md h-8 px-1">
               <Button 
                 size="icon" 
                 variant="ghost" 
-                className="h-6 w-6 text-white hover:bg-white/20 rounded-md"
+                className="h-6 w-6 text-black hover:bg-black/20 rounded-md"
                 onClick={handleDecrease}
               >
                 <Minus className="h-3 w-3" />
@@ -113,7 +113,7 @@ const ProductCard = ({
               <Button 
                 size="icon" 
                 variant="ghost" 
-                className="h-6 w-6 text-white hover:bg-white/20 rounded-md"
+                className="h-6 w-6 text-black hover:bg-black/20 rounded-md"
                 onClick={handleIncrease}
               >
                 <Plus className="h-3 w-3" />

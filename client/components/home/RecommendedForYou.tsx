@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef } from "react";
+import { useCart } from "@/context/CartContext";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -12,6 +13,7 @@ interface Product {
   originalPrice?: number;
   badge?: string;
   image: string;
+  unit?: string;
 }
 
 const recommendedProducts: Product[] = [
@@ -19,12 +21,14 @@ const recommendedProducts: Product[] = [
     id: "1",
     name: "Chopstick Ramen Hot Chicken Noodles 160gm",
     price: 170,
+    unit: "160gm",
     image: "/product/65fa972c115075f231ecd19f_Mr-Noodles-Korean-Super-Spicy-496gm_1_220.webp",
   },
   {
     id: "2",
     name: "Pusti Soyabean Oil 5Ltr.",
     price: 955,
+    unit: "5Ltr",
     image: "/product/686cf6633d66137b62495be2_Aura-Milk-Pusti-1kg_1_220.webp",
   },
   {
@@ -33,6 +37,7 @@ const recommendedProducts: Product[] = [
     price: 360,
     originalPrice: 380,
     badge: "৳20 OFF",
+    unit: "450gm",
     image: "/product/65fa9663d61902ef2307a5f8_Quaker-Oats-1000100gm-Jar_1_220.webp",
   },
   {
@@ -41,12 +46,14 @@ const recommendedProducts: Product[] = [
     price: 1299,
     originalPrice: 1899,
     badge: "৳600 OFF",
+    unit: "1pc",
     image: "/product/6735d10b767644156106c057_Electric-Kettle-1-8L_1_220.webp",
   },
   {
     id: "5",
     name: "Pureit Classic Germ Kill Kit",
     price: 800,
+    unit: "1kit",
     image: "/product/689dd7ab532fe2c42ca82761_Vim-Dishwash-Liquid-95050ml_1_220.webp",
   },
   {
@@ -55,19 +62,34 @@ const recommendedProducts: Product[] = [
     price: 625,
     originalPrice: 1380,
     badge: "৳755 OFF",
+    unit: "1.8L",
     image: "/product/6735d10b767644156106c057_Electric-Kettle-1-8L_1_220.webp",
   },
 ];
 
 const RecommendedForYou = () => {
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const { addToCart, removeFromCart, cartItems } = useCart();
   const rowRef = useRef<HTMLDivElement>(null);
 
-  const updateQuantity = (id: string, delta: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] || 0) + delta),
-    }));
+  const getQuantity = (id: string) => {
+    const item = cartItems.find((i) => i.id === id);
+    return item?.quantity || 0;
+  };
+
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      unit: product.unit || "1pc",
+      quantity: 1,
+    });
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    removeFromCart(productId);
   };
 
   const scroll = (dir: number) => {
@@ -96,7 +118,7 @@ const RecommendedForYou = () => {
           className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide"
         >
           {recommendedProducts.map((product) => {
-            const qty = quantities[product.id] || 0;
+            const qty = getQuantity(product.id);
 
             return (
               <div
@@ -148,23 +170,23 @@ const RecommendedForYou = () => {
                 <div className="p-2 mt-auto">
                   {qty === 0 ? (
                     <button
-                      onClick={() => updateQuantity(product.id, 1)}
+                      onClick={() => handleAddToCart(product)}
                       className="w-full rounded-full bg-red-600 text-white text-xs font-semibold py-1.5"
                     >
                       Add to Cart
                     </button>
                   ) : (
-                    <div className="flex justify-between items-center bg-red-600 text-white rounded-full px-3 py-1.5">
+                    <div className="flex justify-between items-center bg-[#FAD816] text-black rounded-full px-3 py-1.5">
                       <Minus
                         size={14}
                         className="cursor-pointer"
-                        onClick={() => updateQuantity(product.id, -1)}
+                        onClick={() => handleRemoveFromCart(product.id)}
                       />
                       <span className="text-xs font-bold">{qty}</span>
                       <Plus
                         size={14}
                         className="cursor-pointer"
-                        onClick={() => updateQuantity(product.id, 1)}
+                        onClick={() => handleAddToCart(product)}
                       />
                     </div>
                   )}

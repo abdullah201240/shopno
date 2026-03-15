@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import Image from "next/image";
+import React, { useRef } from "react";
+import { useCart } from "@/context/CartContext";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus, Croissant } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
@@ -12,6 +13,7 @@ interface Product {
   originalPrice?: number;
   badge?: string;
   image: string;
+  unit?: string;
 }
 
 const breadProducts: Product[] = [
@@ -21,12 +23,14 @@ const breadProducts: Product[] = [
     price: 95, 
     originalPrice: 120, 
     badge: "৳25 OFF",
+    unit: "500gm",
     image: "/product/6971ace0102bfed46d50cbbd_Bread-Pit-White-Sandwich-Bread-500gm_1_220.webp"
   },
   { 
     id: "b2", 
     name: "Pit Soft White Milk Bread 300gm", 
     price: 75, 
+    unit: "300gm",
     image: "/product/6971ace5102bfed46d50cdca_Bread-Pit-Soft-White-Milk-Bread-300gm_1_220.webp"
   },
   { 
@@ -35,12 +39,14 @@ const breadProducts: Product[] = [
     price: 85, 
     originalPrice: 100, 
     badge: "৳15 OFF",
+    unit: "300gm",
     image: "/product/6971acea102bfed46d50ce2f_Bread-Pit-Super-S-Multigrain-Bread-300gm_1_220.webp"
   },
   { 
     id: "b4", 
     name: "Pit Soft Brown W Meal Bread 300gm", 
     price: 70, 
+    unit: "300gm",
     image: "/product/6971ace8102bfed46d50cdfd_Bread-Pit-Soft-Brown-W-Meal-Bread-300gm_1_220.webp"
   },
   { 
@@ -49,25 +55,41 @@ const breadProducts: Product[] = [
     price: 65, 
     originalPrice: 80, 
     badge: "৳15 OFF",
+    unit: "300gm",
     image: "/product/6971ace3102bfed46d50cdb1_Bread-Pit-White-Sandwich-Bread-300gm_1_220.webp"
   },
   { 
     id: "b6", 
     name: "Pit Dinner Roll 4Pcs 180gm", 
     price: 60, 
+    unit: "180gm",
     image: "/product/6971acf2102bfed46d50cf15_Bread-Pit-Dinner-Roll-4Pcs-180gm_1_220.webp"
   },
 ];
 
 const BreadAndMore: React.FC = () => {
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const { addToCart, removeFromCart, cartItems } = useCart();
   const rowRef = useRef<HTMLDivElement>(null);
 
-  const updateQuantity = (id: string, delta: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] || 0) + delta),
-    }));
+  const getQuantity = (id: string) => {
+    const item = cartItems.find((i) => i.id === id);
+    return item?.quantity || 0;
+  };
+
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      unit: product.unit || "1pc",
+      quantity: 1,
+    });
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    removeFromCart(productId);
   };
 
   const scroll = (dir: number) => {
@@ -97,7 +119,7 @@ const BreadAndMore: React.FC = () => {
           className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide scroll-smooth"
         >
           {breadProducts.map((product) => {
-            const qty = quantities[product.id] || 0;
+            const qty = getQuantity(product.id);
 
             return (
               <div
@@ -114,7 +136,7 @@ const BreadAndMore: React.FC = () => {
                 {/* Image */}
                 <div className="px-2 pt-2">
                   <AspectRatio ratio={1}>
-                    <Image
+                    <ImageWithFallback
                       src={product.image}
                       alt={product.name}
                       fill
@@ -149,23 +171,23 @@ const BreadAndMore: React.FC = () => {
                 <div className="p-2 mt-auto">
                   {qty === 0 ? (
                     <button
-                      onClick={() => updateQuantity(product.id, 1)}
+                      onClick={() => handleAddToCart(product)}
                       className="w-full rounded-full bg-[#C82128] text-white text-xs font-semibold py-1.5"
                     >
                       Add to Cart
                     </button>
                   ) : (
-                    <div className="flex justify-between items-center bg-[#C82128] text-white rounded-full px-3 py-1.5">
+                    <div className="flex justify-between items-center bg-[#FAD816] text-black rounded-full px-3 py-1.5">
                       <Minus
                         size={14}
                         className="cursor-pointer"
-                        onClick={() => updateQuantity(product.id, -1)}
+                        onClick={() => handleRemoveFromCart(product.id)}
                       />
                       <span className="text-xs font-bold">{qty}</span>
                       <Plus
                         size={14}
                         className="cursor-pointer"
-                        onClick={() => updateQuantity(product.id, 1)}
+                        onClick={() => handleAddToCart(product)}
                       />
                     </div>
                   )}
