@@ -68,15 +68,15 @@ export default function OrderSuccessPage() {
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          <Link href="/" className="block">
+          <Link href="/orders" className="block">
             <Button className="w-full h-12 bg-[#C82128] hover:bg-[#A81A20] text-white font-bold shadow-lg">
-              Continue Shopping
+              View My Orders
             </Button>
           </Link>
           
-          <Link href="/cart" className="block">
+          <Link href="/" className="block">
             <Button variant="outline" className="w-full h-12 border-gray-200 text-gray-700 font-bold hover:bg-gray-50">
-              View Cart
+              Continue Shopping
             </Button>
           </Link>
         </div>
