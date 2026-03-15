@@ -1,4 +1,5 @@
 
+'use client'
 import HomeHero from "@/components/home/HomeHero";
 import BreadAndMore from "@/components/home/BreadAndMore";
 import BestDeals from "@/components/home/BestDeals";
@@ -7,10 +8,17 @@ import RecommendedForYou from "@/components/home/RecommendedForYou";
 import HotAndTrending from "@/components/home/HotAndTrending";
 import TrustBadges from "@/components/home/TrustBadges";
 import PromoBannerGrid from "@/components/home/PromoBannerGrid";
+import PopupBanner from "@/components/home/PopupBanner";
+import { useState } from "react";
 
 export default function Home() {
+  const [showPopup, setShowPopup] = useState(true);
+
   return (
     <>
+      {/* Popup Banner */}
+      {showPopup && <PopupBanner onClose={() => setShowPopup(false)} />}
+
       {/* Hero Section - Full Width */}
       <div className="w-full">
         <HomeHero />
