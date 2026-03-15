@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  ArrowLeft,
   Package,
   Truck,
   CheckCircle,
   Clock,
-  Download,
-  Share2,
   Phone,
   Mail,
   MapPin,
