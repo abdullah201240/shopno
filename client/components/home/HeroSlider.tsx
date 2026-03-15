@@ -39,7 +39,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ banners }) => {
               src={banner.image}
               alt={banner.alt}
               fill
-              className="object-contain"
+              className="object-fit"
               sizes="100vw"
             />
           </div>
