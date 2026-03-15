@@ -9,16 +9,12 @@ import {
   ChevronRight,
   Home,
   Heart,
-  Share2,
   Minus,
   Plus,
   Truck,
   ShieldCheck,
-  RefreshCcw,
   ThumbsUp,
-  Clock,
-  CheckCircle2,
-  Search
+  CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -161,10 +157,9 @@ export default function ProductDetailsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-100 py-3 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+    <div >
+      <div  >
+        <div className="max-w-350 mx-auto">
           <nav className="flex items-center text-[13px] text-gray-500 font-medium">
             <Link href="/" className="hover:text-brand-primary flex items-center gap-1">
               <Home className="w-3.5 h-3.5" />
@@ -180,17 +175,17 @@ export default function ProductDetailsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-0 md:px-4 lg:px-8 pt-0 md:pt-6">
+      <div className="max-w-350 mx-auto">
         
         {/* TOP SECTION: Images & Core Info */}
-        <div className="bg-white md:rounded-xl shadow-sm border-gray-100 md:border overflow-hidden mb-6">
+        <div className="overflow-hidden mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 lg:gap-12 p-0 md:p-8">
             
             {/* Gallery Left */}
             <div className="flex flex-col gap-4 p-4 md:p-0 bg-white">
               {/* Main Image View */}
               <div 
-                className="relative aspect-square w-full max-w-[500px] mx-auto rounded-lg border border-gray-100 p-8 flex items-center justify-center bg-white overflow-hidden cursor-crosshair group/zoom"
+                className="relative aspect-square w-full mx-auto flex items-center justify-center overflow-hidden cursor-crosshair group/zoom"
                 onMouseEnter={() => setIsZoomed(true)}
                 onMouseLeave={() => {
                   setIsZoomed(false);
@@ -199,13 +194,11 @@ export default function ProductDetailsPage() {
                 onMouseMove={handleMouseMove}
               >
                 {product.discount && (
-                  <Badge className="absolute top-4 left-4 bg-[#C82128] text-white z-10 px-2.5 py-1 text-xs font-black uppercase tracking-wider rounded border-none shadow-md">
+                  <Badge className="absolute top-4 left-4 bg-[#C82128] text-white z-10 px-2.5 py-1 text-xs font-black uppercase tracking-wider rounded border-none shadow-none">
                     {product.discount}
                   </Badge>
                 )}
-                <button className="absolute top-4 right-4 z-10 p-2.5 bg-white border border-gray-100 rounded-full text-gray-400 shadow-sm hover:text-red-500 hover:border-red-100 transition-colors group">
-                  <Heart className="w-5 h-5 group-hover:fill-red-500 transition-all" />
-                </button>
+                
                 <div 
                   className="relative w-full h-full transition-transform duration-100 ease-out"
                   style={isZoomed ? zoomTransform : {}}
@@ -226,7 +219,7 @@ export default function ProductDetailsPage() {
                   <button
                     key={idx}
                     onClick={() => setActiveImage(idx)}
-                    className={`relative w-20 h-20 rounded-md border-2 overflow-hidden bg-white p-2 transition-all ${
+                    className={`relative w-20 h-20  overflow-hidden p-2 transition-all ${
                       activeImage === idx 
                         ? "border-[#C82128] shadow-md shadow-red-100" 
                         : "border-gray-100 hover:border-gray-300"
@@ -239,7 +232,7 @@ export default function ProductDetailsPage() {
             </div>
 
             {/* Product Details Right */}
-            <div className="flex flex-col pt-2 pb-6 px-4 md:p-0">
+            <div className="flex flex-col ">
               
               <div className="mb-2">
                 <span className="text-[12px] font-bold text-[#C82128] bg-red-50 px-2 py-1 rounded inline-block uppercase tracking-wider">
@@ -270,7 +263,7 @@ export default function ProductDetailsPage() {
               </div>
 
               {/* Pricing Canvas */}
-              <div className="bg-gray-50 rounded-xl p-5 mb-6 border border-gray-100/60 shadow-inner">
+              <div >
                 <div className="flex flex-col gap-1">
                   <div className="flex items-end gap-3">
                     <span className="text-[34px] md:text-[40px] font-black text-[#C82128] leading-none tracking-tighter">
@@ -289,7 +282,7 @@ export default function ProductDetailsPage() {
               </div>
 
               {/* Stock and Add to Cart Area */}
-              <div className="flex flex-col gap-5 border-b border-gray-100 pb-8 mb-6">
+              <div className="flex flex-col gap-5 pb-8 mb-6">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-green-500" />
                   <span className="text-sm font-bold text-gray-900">In Stock</span>
@@ -298,7 +291,7 @@ export default function ProductDetailsPage() {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                   
                   {/* Quantity Selector */}
-                  <div className="flex justify-between items-center border-2 border-gray-200 rounded-lg h-14 w-full sm:w-36 px-2 bg-white flex-shrink-0">
+                  <div className="flex justify-between items-center  h-14 w-full sm:w-36 px-2 bg-white flex-shrink-0">
                     <button 
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-100 rounded-md transition-colors"
@@ -351,7 +344,7 @@ export default function ProductDetailsPage() {
         </div>
 
         {/* BOTTOM SECTION: Tabs (Details, Specs, Reviews) */}
-        <div className="bg-white md:rounded-xl shadow-sm border-gray-100 md:border mb-12">
+        <div className="border-gray-100 md:border mb-12">
           {/* Tabs Navigation */}
           <div className="flex overflow-x-auto border-b border-gray-100 scrollbar-hide">
             {[
