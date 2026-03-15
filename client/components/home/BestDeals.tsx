@@ -112,7 +112,7 @@ const BestDeals: React.FC = () => {
           src="/catagory/69a001f5e42d6823d84676f0_uniliverbanner_D_1_1552.webp"
           alt="Best Deals Banner"
           fill
-          className="object-contain bg-gray-50"
+          className="object-fit"
         />
       </div>
 

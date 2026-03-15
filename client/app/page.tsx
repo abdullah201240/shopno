@@ -25,7 +25,7 @@ export default function Home() {
       </div>
       
       {/* Other Sections - Constrained Width */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 space-y-6 lg:space-y-8 pb-12">
+      <div className="max-w-400 mx-auto px-4 lg:px-6 space-y-6 lg:space-y-8 pb-12">
         {/* Trust Badges */}
         <div className="hidden lg:block">
           <TrustBadges />
