@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { Plus, Minus } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -76,7 +76,7 @@ const RecommendedForYou = () => {
   };
 
   return (
-    <section className="px-2 py-4">
+    <section >
       <h2 className="text-center text-lg font-bold uppercase tracking-widest text-gray-900 mb-4">
         Recommended For You
       </h2>
